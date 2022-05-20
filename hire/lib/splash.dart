@@ -20,32 +20,28 @@ class _SplashState extends State<Splash> {
   _navigatetohome() async {
     await Future.delayed(Duration(milliseconds: 1500), () {});
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => MyHomePage(title: 'GFG',)));
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(135, 90, 199, 214),
-      
       body: Center(
-        
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              
               height: 190.0,
               width: 190.0,
               decoration: const BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/launch_image.png'),
-                  fit: BoxFit.fill ),
-                  shape: BoxShape.circle,
+                    image: AssetImage('assets/launch_image.png'),
+                    fit: BoxFit.fill),
+                shape: BoxShape.circle,
               ),
             ),
             Container(
-              
               padding: const EdgeInsets.all(36.0),
               child: const Text('Hire  ',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
