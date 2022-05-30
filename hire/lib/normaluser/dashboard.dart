@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'normaluser/NavBar.dart';
-
+import 'package:hire/normaluser/NavBar.dart';
 
 class dashboard extends StatefulWidget {
   const dashboard({Key? key}) : super(key: key);
@@ -34,17 +32,7 @@ class _dashboardState extends State<dashboard> {
     );
     return Scaffold(
       backgroundColor: Color(0xFFFEF6E4),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(accountName: Text('hello'), accountEmail: Text("hi"),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(child: Image.network("https://cdn.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.webp"),)
-            ),
-            )
-          ],
-        ),
-      ),
+      drawer: const Navbar(),
       appBar: AppBar(
         title: const Text("Dashboard"),
       ),

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "457261891163",
+    "project_id": "hire-965d7",
+    "storage_bucket": "hire-965d7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457261891163:android:4a0e12f180d4029e32c97e",
+        "android_client_info": {
+          "package_name": "com.example.hire"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457261891163-sm92fmc1hhuvrbiutmlmfuvu6spci26a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hire",
+            "certificate_hash": "c0cab10717913375545a1371ebf4dfae4414359b"
+          }
+        },
+        {
+          "client_id": "457261891163-8b65hnmqkdjr0774po9q3qaggdsr2le1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8HO_vix-6jyS5SDMI2k-ZvBc8yTNXMnc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457261891163-8b65hnmqkdjr0774po9q3qaggdsr2le1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

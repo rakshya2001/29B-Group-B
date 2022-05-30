@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hire/login.dart';
-import 'package:hire/registerpage.dart';
+import 'package:hire/normaluser/login.dart';
+import 'package:hire/normaluser/registerpage.dart';
+
+import '../professionals/registerprofessionals.dart';
 
 class registerScreen extends StatefulWidget {
   const registerScreen({Key? key}) : super(key: key);
@@ -14,14 +16,13 @@ class _registerScreenState extends State<registerScreen> {
   Widget build(BuildContext context) {
     final registerButtonuser = Material(
       elevation: 5,
-      
       color: Color(0xFFF582AE),
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        onPressed: () {Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => registerpage()));},
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => registerpage()));
+        },
         child: const Text(
           "Register",
           textAlign: TextAlign.center,
@@ -33,17 +34,15 @@ class _registerScreenState extends State<registerScreen> {
         ),
       ),
     );
-     final registerButtonprofessional = Material(
+    final registerButtonprofessional = Material(
       elevation: 5,
       color: Color(0xFFF582AE),
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
-        
-        onPressed: () { Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => registerpage()));
-                            },
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => multilistedregister()));
+        },
         child: const Text(
           "Register",
           textAlign: TextAlign.center,
@@ -64,11 +63,9 @@ class _registerScreenState extends State<registerScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black),
-                    color: Color(0xfff3fbfb)
-                    ),
-
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    color: Color(0xfff3fbfb)),
                 child: Column(children: <Widget>[
                   const SizedBox(
                     child: Align(
@@ -108,11 +105,11 @@ class _registerScreenState extends State<registerScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 150,
                     child: Align(
                         alignment: Alignment.topRight,
                         child: Image.asset(
-                          "assets/launch_image.png",
+                          "assets/user.png",
                           fit: BoxFit.contain,
                         )),
                   ),
@@ -120,8 +117,8 @@ class _registerScreenState extends State<registerScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(10),
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.blueAccent),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blueAccent),
                     color: Color(0xfff3fbfb)),
                 child: Column(children: <Widget>[
                   const SizedBox(
@@ -162,40 +159,42 @@ class _registerScreenState extends State<registerScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 100,
+                    height: 150,
                     child: Align(
                         alignment: Alignment.topRight,
                         child: Image.asset(
-                          "assets/launch_image.png",
+                          "assets/professional.png",
                           fit: BoxFit.contain,
                         )),
                   ),
                 ]),
               ),
-             Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          const Text("Already have a Account ?  ",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LoginScreen()));
-                            },
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.red,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 25),
-                            ),
-                          )
-                        ],
-                      ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Text(
+                    "Already have a Account ?  ",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()));
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 25),
+                    ),
+                  )
+                ],
+              ),
             ],
           ),
         ),

@@ -10,6 +10,8 @@ class UserModel {
   String? city;
   String? phone;
   String? role;
+  String? category;
+  String? time;
   UserModel(
       {this.uid,
       this.firstname,
@@ -20,7 +22,9 @@ class UserModel {
       this.street,
       this.city,
       this.phone,
-      this.role
+      this.role,
+      this.category,
+      this.time,
       });
 
   //data from server
@@ -36,7 +40,10 @@ class UserModel {
         street: map['street'],
         city: map['city'],
         phone: map['phone'],
-        role:map['role']);
+        role: map['role'],
+        category: map['category'],
+        time: map['time']
+        );
   }
 
   //sending data to  the server
@@ -52,7 +59,9 @@ class UserModel {
       'street': street,
       'city': city,
       'phone': phone,
-      'role' : role
+      'role': role,
+      'time' :time,
+      'category' : category
     };
   }
 }
