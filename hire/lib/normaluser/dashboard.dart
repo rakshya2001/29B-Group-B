@@ -33,9 +33,7 @@ class _dashboardState extends State<dashboard> {
     return Scaffold(
       backgroundColor: Color(0xFFFEF6E4),
       drawer: const Navbar(),
-      appBar: AppBar(
-        title: const Text("Dashboard"),
-      ),
+     
       body: Center(
         child: Container(
           child: Column(children: [

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hire/normaluser/loader.dart';
 import 'package:hire/normaluser/login.dart';
 import 'package:hire/models/user_model.dart';
 
@@ -26,26 +27,23 @@ class _registerpageState extends State<registerpage> {
   final TextEditingController streetController = new TextEditingController();
   final TextEditingController cityController = new TextEditingController();
   final TextEditingController phoneController = new TextEditingController();
-  final TextEditingController roleController = new TextEditingController()..text="normaluser";
-
-  
+  final TextEditingController roleController = new TextEditingController()
+    ..text = "normaluser";
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     final role = TextFormField(
-    controller: roleController,
+      controller: roleController,
       enabled: false,
       autofocus: false,
-      
       decoration: new InputDecoration(
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        errorBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        contentPadding: EdgeInsets.only(left: 500)
-      ),
-    
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          errorBorder: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          contentPadding: EdgeInsets.only(left: 500)),
     );
     final firstname = TextFormField(
       autofocus: false,
@@ -275,7 +273,8 @@ class _registerpageState extends State<registerpage> {
       ),
     );
 
-    return Scaffold(
+    return  loading ? ColorLoader3() :
+    Scaffold(
       backgroundColor: const Color(0xffFEF6E4),
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -291,12 +290,9 @@ class _registerpageState extends State<registerpage> {
               child: Form(
                 key: _formKey,
                 child: Column(
-                  
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    
-                    
                     firstname,
                     const SizedBox(
                       height: 35,
@@ -330,13 +326,10 @@ class _registerpageState extends State<registerpage> {
                       height: 35,
                     ),
                     role,
-                    
                     Registerbutton,
                     const SizedBox(
                       height: 35,
-                      
                     ),
-                    
                   ],
                 ),
               ),
@@ -349,12 +342,18 @@ class _registerpageState extends State<registerpage> {
 
   void signUp(String email, String password) async {
     if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => {
                 postDetailsToFirestore(),
               })
           .catchError((e) {
+        setState(() {
+          bool loading = false;
+        });
         Fluttertoast.showToast(msg: e!.message);
       });
     }

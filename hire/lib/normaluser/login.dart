@@ -1,10 +1,15 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hire/dashboard.dart';
+import 'package:hire/controllers/login_controller.dart';
+
+import 'package:hire/normaluser/home.dart';
+import 'package:hire/normaluser/loader.dart';
 import 'package:hire/normaluser/registerpage.dart';
 import 'package:hire/normaluser/registerscreen.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/google_signin.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -23,9 +28,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   // firebase
   final _auth = FirebaseAuth.instance;
-  
+
   // string for displaying the error Message
   String? errorMessage;
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,77 +110,94 @@ class _LoginScreenState extends State<LoginScreen> {
           )),
     );
 
-    return Scaffold(
-      backgroundColor: const Color(0xffFEF6E4),
-      body: Center(
-        
-        child: SingleChildScrollView(
-          child: Container(
-          color: const Color(0xffFEF6E4),
-            child: Padding(
-              padding: const EdgeInsets.all(36.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                        height: 300,
-                        child: Image.asset(
-                          "assets/logo.png",
-                          fit: BoxFit.contain,
-                        )),
-                    SizedBox(height: 45),
-                    emailField,
-                    SizedBox(height: 25),
-                    passwordField,
-                    SizedBox(height: 35),
-                    loginButton,
-                    SizedBox(height: 15),
-                    Row(
+    return loading
+        ? ColorLoader3()
+        : Scaffold(
+            backgroundColor: const Color(0xffFEF6E4),
+            body: Center(
+              child: SingleChildScrollView(
+                child: Container(
+                  color: const Color(0xffFEF6E4),
+                  child: Padding(
+                    padding: const EdgeInsets.all(36.0),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text("Don't have an account? "),
+                          SizedBox(
+                              height: 250,
+                              child: Image.asset(
+                                "assets/logo.png",
+                                fit: BoxFit.contain,
+                              )),
+                          emailField,
+                          SizedBox(height: 25),
+                          passwordField,
+                          SizedBox(height: 25),
+                          loginButton,
+                          SizedBox(height: 35),
                           GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          registerScreen()));
-                            },
-                            child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
+                            child: Image.asset(
+                              "assets/login.png",
+                              width: 240,
                             ),
-                          )
-                        ])
-                  ],
+                            onTap: () {
+                              final provider =
+                                  Provider.of<GoogleSignInController>(context,
+                                      listen: false);
+                              provider.login();
+                            },
+                          ),
+                          SizedBox(height: 45),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text("Don't have an account? "),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                registerScreen()));
+                                  },
+                                  child: Text(
+                                    "SignUp",
+                                    style: TextStyle(
+                                        color: Colors.redAccent,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15),
+                                  ),
+                                )
+                              ])
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
-    );
+          );
   }
 
   // login function
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
+      setState(() => loading = true);
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => dashboard())),
+                      MaterialPageRoute(builder: (context) => home())),
                 });
       } on FirebaseAuthException catch (error) {
+        setState(() {
+          loading = false;
+        });
         switch (error.code) {
           case "invalid-email":
             errorMessage = "Your email address appears to be malformed.";
@@ -201,5 +225,9 @@ class _LoginScreenState extends State<LoginScreen> {
         print(error.code);
       }
     }
+   
+
+   
+    
   }
 }

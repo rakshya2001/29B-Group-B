@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hire/normaluser/loader.dart';
 import 'package:hire/normaluser/login.dart';
 import 'package:hire/normaluser/splash.dart';
+
+import 'controllers/login_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.green,
       ),
-      home: LoginScreen(),
+      home: Mainpage(),
     );
   }
 }

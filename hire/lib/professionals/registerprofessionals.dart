@@ -430,16 +430,14 @@ class _multilistedregisterState extends State<multilistedregister> {
                       fontSize: 20,
                     ),
                   ),
-                  OutlineButton.icon(
+                  IconButton(
                     onPressed: (() => pickImage(ImageSource.gallery)),
                     icon: Icon(Icons.browse_gallery_sharp),
-                    label: Text("Choose from gallery"),
                     color: Colors.green,
                   ),
-                  OutlineButton.icon(
+                  IconButton(
                     onPressed: (() => pickImage(ImageSource.camera)),
                     icon: Icon(Icons.camera),
-                    label: Text("Take from camera"),
                     color: Colors.green,
                   ),
                   const Text(
@@ -448,16 +446,14 @@ class _multilistedregisterState extends State<multilistedregister> {
                       fontSize: 20,
                     ),
                   ),
-                  OutlineButton.icon(
+                  IconButton(
                     onPressed: (() => pickImage2(ImageSource.gallery)),
                     icon: Icon(Icons.browse_gallery_sharp),
-                    label: Text("Choose from gallery"),
                     color: Colors.green,
                   ),
-                  OutlineButton.icon(
+                  IconButton(
                     onPressed: (() => pickImage2(ImageSource.camera)),
                     icon: Icon(Icons.camera),
-                    label: Text("Take from camera"),
                     color: Colors.green,
                   ),
                 ]),

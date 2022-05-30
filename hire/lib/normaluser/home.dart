@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hire/normaluser/contact.dart';
@@ -38,10 +36,10 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Navbar(),
-      appBar: AppBar(
-       
-      ),
+      appBar: AppBar(),
       body: PageStorage(
+        
+
         child: currentScreen,
         bucket: bucket,
       ),
@@ -49,11 +47,10 @@ class _homeState extends State<home> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
         backgroundColor: Colors.orangeAccent,
-        
         onPressed: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      
+
       //bottom app bar
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -65,70 +62,64 @@ class _homeState extends State<home> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-             IconButton( onPressed: () {
+              IconButton(
+                onPressed: () {
                   setState(
                     () {
                       currentScreen = const dashboard();
                       currentTab = 0;
                     },
                   );
-                }, 
-                  icon: Icon(
-                    Icons.dashboard,
-                    color: currentTab == 0 ? Colors.white : Colors.black,
-                  ),
-                
+                },
+                icon: Icon(
+                  Icons.dashboard,
+                  color: currentTab == 0 ? Colors.white : Colors.black,
                 ),
-              
-              IconButton( onPressed: () {
+              ),
+              IconButton(
+                onPressed: () {
                   setState(
                     () {
                       currentScreen = const favourite();
                       currentTab = 1;
                     },
                   );
-                }, 
-                  icon: Icon(
-                    Icons.favorite,
-                    color: currentTab == 1 ? Colors.white : Colors.black,
-                  ),
-                
+                },
+                icon: Icon(
+                  Icons.favorite,
+                  color: currentTab == 1 ? Colors.white : Colors.black,
                 ),
-               
-             IconButton( onPressed: () {
+              ),
+              IconButton(
+                onPressed: () {
                   setState(
                     () {
                       currentScreen = const professional();
                       currentTab = 2;
                     },
                   );
-                }, 
-                  icon: Icon(
-                    Icons.group,
-                    size: 30,
-                    color: currentTab == 2
-                     ? Colors.white : Colors.black,
-                  
-                  ),
-                
+                },
+                icon: Icon(
+                  Icons.group,
+                  size: 30,
+                  color: currentTab == 2 ? Colors.white : Colors.black,
                 ),
-                IconButton( onPressed: () {
+              ),
+              IconButton(
+                onPressed: () {
                   setState(
                     () {
                       currentScreen = const profile();
                       currentTab = 3;
                     },
                   );
-                }, 
-                  icon: Icon(
-                    Icons.person,
-                    size: 30,
-                    color: currentTab == 3
-                     ? Colors.white : Colors.black,
-                  ),
-                
+                },
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
+                  color: currentTab == 3 ? Colors.white : Colors.black,
                 ),
-             
+              ),
             ],
           ),
         ),
