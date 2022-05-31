@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hire/controllers/login_controller.dart';
+import 'package:hire/normaluser/auth_Provider.dart';
 
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/loader.dart';
@@ -192,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => home())),
+                      MaterialPageRoute(builder: (context) => GateWay())),
                 });
       } on FirebaseAuthException catch (error) {
         setState(() {
@@ -225,9 +226,5 @@ class _LoginScreenState extends State<LoginScreen> {
         print(error.code);
       }
     }
-   
-
-   
-    
   }
 }

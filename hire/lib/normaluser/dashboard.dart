@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hire/normaluser/NavBar.dart';
 
 class dashboard extends StatefulWidget {
-  const dashboard({Key? key}) : super(key: key);
-
+  dashboard({Key? key, this.firstName, this.lastName, this.email})
+      : super(key: key);
+  String? firstName;
+  String? lastName;
+  String? email;
   @override
-  State<dashboard> createState() => _dashboardState();
+  State<dashboard> createState() => _dashboardState(firstName, lastName, email);
 }
 
 class _dashboardState extends State<dashboard> {
+  String? firstName;
+  String? lastName;
+  String? email;
+
+  _dashboardState(this.firstName, this.lastName, this.email);
   @override
   Widget build(BuildContext context) {
     final viewmore = Material(
@@ -32,8 +40,11 @@ class _dashboardState extends State<dashboard> {
     );
     return Scaffold(
       backgroundColor: Color(0xFFFEF6E4),
-      drawer: const Navbar(),
-     
+      drawer: Navbar(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      ),
       body: Center(
         child: Container(
           child: Column(children: [

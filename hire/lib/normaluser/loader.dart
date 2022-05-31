@@ -1,5 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import "package:flutter/material.dart";
 import 'dart:math';
+
+import 'package:hire/models/user_model.dart';
+import 'package:hire/normaluser/contact.dart';
+import 'package:hire/normaluser/dashboard.dart';
+
+import 'home.dart';
 
 class ColorLoader3 extends StatefulWidget {
   final double radius;
@@ -24,7 +32,6 @@ class _ColorLoader3State extends State<ColorLoader3>
   @override
   void initState() {
     super.initState();
-
     radius = widget.radius;
     dotRadius = widget.dotRadius;
 
@@ -75,9 +82,8 @@ class _ColorLoader3State extends State<ColorLoader3>
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor:const Color(0xffFEF6E4), 
+      backgroundColor: const Color(0xffFEF6E4),
       body: Center(
         child: Container(
           width: 100.0,

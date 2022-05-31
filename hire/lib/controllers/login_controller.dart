@@ -12,9 +12,8 @@ class Mainpage extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return home();
-          }else if(snapshot.hasError){
+       
+           if(snapshot.hasError){
             return Center(child: Text("something went wrong"));
           }
           return LoginScreen();

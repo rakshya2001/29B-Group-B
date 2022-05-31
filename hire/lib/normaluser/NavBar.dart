@@ -10,31 +10,23 @@ import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/login.dart';
 
 class Navbar extends StatefulWidget {
-  const Navbar({Key? key}) : super(key: key);
-
+  Navbar({Key? key, this.firstName, this.lastName, this.email})
+      : super(key: key);
+  String? firstName;
+  String? lastName;
+  String? email;
   @override
-  State<Navbar> createState() => _NavbarState();
+  State<Navbar> createState() => _NavbarState(firstName,lastName,email);
 }
 
 class _NavbarState extends State<Navbar> {
-  User? user = FirebaseAuth.instance.currentUser;
-  UserModel loggedInuser = UserModel();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FirebaseFirestore.instance
-        .collection("Users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.loggedInuser = UserModel.fromMap(value.data());
-      setState(() {});
-    });
-  }
+  String? firstName;
+  String? lastName;
+  String? email;
 
   double rating = 0;
+
+  _NavbarState(this.firstName, this.lastName, this.email);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -42,9 +34,8 @@ class _NavbarState extends State<Navbar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName:
-                Text("${loggedInuser.firstname} ${loggedInuser.lastname}"),
-            accountEmail: Text("${loggedInuser.email}"),
+            accountName: Text("${firstName} ${lastName}"),
+            accountEmail: Text("${email}"),
             currentAccountPicture: CircleAvatar(
               child: ClipOval(
                 child: Image.network(
@@ -126,6 +117,7 @@ class _NavbarState extends State<Navbar> {
 
   Future<void> Logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushReplacement( MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 }

@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hire/models/user_model.dart';
 import 'package:hire/normaluser/contact.dart';
 import 'package:hire/normaluser/dashboard.dart';
 import 'package:hire/normaluser/favourite.dart';
@@ -16,30 +19,57 @@ class home extends StatefulWidget {
 }
 
 class _homeState extends State<home> {
+  User? user = FirebaseAuth.instance.currentUser;
+  UserModel loggedInuser = UserModel();
+  String? firstName;
+  String? lastName;
+  String? email;
+
   //properties
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInuser = UserModel.fromMap(value.data());
+    }).whenComplete(() {
+      setState(() {
+        firstName = loggedInuser.firstname.toString();
+        lastName = loggedInuser.lastname.toString();
+        email = loggedInuser.email.toString();
+      });
+    });
+  }
 
   int currentTab = 0;
   final List<Widget> screens = [
-    const dashboard(),
+    dashboard(),
     const professional(),
     const favourite(),
     const profile(),
-    const Navbar(),
+    Navbar(),
   ];
 
   // active tab
-  Widget currentScreen = const dashboard(); // initial screen of viewport
+  Widget currentScreen = dashboard(); // initial screen of viewport
 
   final PageStorageBucket bucket = PageStorageBucket();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const Navbar(),
+      drawer: Navbar(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+      ),
       appBar: AppBar(),
       body: PageStorage(
-        
-
         child: currentScreen,
         bucket: bucket,
       ),
@@ -66,7 +96,7 @@ class _homeState extends State<home> {
                 onPressed: () {
                   setState(
                     () {
-                      currentScreen = const dashboard();
+                      currentScreen = dashboard();
                       currentTab = 0;
                     },
                   );
