@@ -112,6 +112,8 @@ class _registerScreenState extends State<registerScreen> {
                           "assets/user.png",
                           fit: BoxFit.contain,
                         )),
+
+                        
                   ),
                 ]),
               ),
