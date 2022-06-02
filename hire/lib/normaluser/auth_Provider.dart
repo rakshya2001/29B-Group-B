@@ -3,8 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hire/models/user_model.dart';
 import 'package:hire/normaluser/contact.dart';
+import 'package:hire/normaluser/dashboard.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/loader.dart';
+
+import '../professionals/dashboard.dart';
 
 class GateWay extends StatefulWidget {
   GateWay({Key? key}) : super(key: key);
@@ -50,7 +53,7 @@ class _ControllerState extends State<Controller> {
         role = userModel.role.toString();
       });
     }).catchError((e) {
-      print(e);
+      print(e.toString());
     });
   }
 
@@ -59,7 +62,7 @@ class _ControllerState extends State<Controller> {
       if (role == "normaluser") {
         return home();
       } else if (role == 'professional') {
-        return contact();
+        return Dashboard();
       }
     } catch (e) {
       print(e);

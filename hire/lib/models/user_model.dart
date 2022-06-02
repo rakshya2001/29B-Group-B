@@ -12,20 +12,20 @@ class UserModel {
   String? role;
   String? category;
   String? time;
-  UserModel(
-      {this.uid,
-      this.firstname,
-      this.lastname,
-      this.email,
-      this.password,
-      this.confirmpassword,
-      this.street,
-      this.city,
-      this.phone,
-      this.role,
-      this.category,
-      this.time,
-      });
+  UserModel({
+    this.uid,
+    this.firstname,
+    this.lastname,
+    this.email,
+    this.password,
+    this.confirmpassword,
+    this.street,
+    this.city,
+    this.phone,
+    this.role,
+    this.category,
+    this.time,
+  });
 
   //data from server
 
@@ -42,8 +42,7 @@ class UserModel {
         phone: map['phone'],
         role: map['role'],
         category: map['category'],
-        time: map['time']
-        );
+        time: map['time']);
   }
 
   //sending data to  the server
@@ -60,8 +59,23 @@ class UserModel {
       'city': city,
       'phone': phone,
       'role': role,
-      'time' :time,
-      'category' : category
+      'time': time,
+      'category': category
     };
   }
+
+  Map<String, dynamic> toJson() => {
+        'uid': uid,
+        'firstname': firstname,
+        'lastname': lastname,
+        'email': email,
+        'password': password,
+        'confirmpassword': confirmpassword,
+        'street': street,
+        'city': city,
+        'phone': phone,
+        'role': role,
+        'time': time,
+        'category': category
+      };
 }

@@ -12,11 +12,15 @@ class Mainpage extends StatelessWidget {
       body: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-       
-           if(snapshot.hasError){
-            return Center(child: Text("something went wrong"));
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Eorror"));
+          } else if (snapshot.hasData) {
+            return home();
+          } else {
+            return LoginScreen();
           }
-          return LoginScreen();
         },
       ),
     );

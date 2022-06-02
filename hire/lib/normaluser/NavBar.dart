@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hire/controllers/google_signin.dart';
 import 'package:hire/models/user_model.dart';
 import 'package:hire/normaluser/contact.dart';
 
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/login.dart';
+import 'package:provider/provider.dart';
 
 class Navbar extends StatefulWidget {
   Navbar({Key? key, this.firstName, this.lastName, this.email})
@@ -16,7 +18,7 @@ class Navbar extends StatefulWidget {
   String? lastName;
   String? email;
   @override
-  State<Navbar> createState() => _NavbarState(firstName,lastName,email);
+  State<Navbar> createState() => _NavbarState(firstName, lastName, email);
 }
 
 class _NavbarState extends State<Navbar> {
@@ -29,22 +31,17 @@ class _NavbarState extends State<Navbar> {
   _NavbarState(this.firstName, this.lastName, this.email);
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text("${firstName} ${lastName}"),
-            accountEmail: Text("${email}"),
+            accountName: Text(" ${user.displayName} "),
+            accountEmail: Text(" ${user.email}"),
             currentAccountPicture: CircleAvatar(
-              child: ClipOval(
-                child: Image.network(
-                  "https://cdn.vectorstock.com/i/1000x1000/20/76/man-avatar-profile-vector-21372076.webp",
-                  height: 90,
-                  width: 90,
-                  fit: BoxFit.cover,
-                ),
-              ),
+              radius: 40,
+              backgroundImage: NetworkImage(user.photoURL!),
             ),
             decoration: const BoxDecoration(
               color: Colors.green,
@@ -84,7 +81,11 @@ class _NavbarState extends State<Navbar> {
             leading: const Icon(Icons.logout),
             title: const Text("Logout "),
             onTap: () {
-              Logout(context);
+              final provider =
+                  Provider.of<GoogleSignInController>(context, listen: false);
+              provider.logout();
+
+              
             },
           ),
           const Divider(

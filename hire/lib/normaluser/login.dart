@@ -145,10 +145,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 240,
                             ),
                             onTap: () {
+                              
                               final provider =
                                   Provider.of<GoogleSignInController>(context,
                                       listen: false);
-                              provider.login();
+                              provider.googleLogin();
+                              
                             },
                           ),
                           SizedBox(height: 45),

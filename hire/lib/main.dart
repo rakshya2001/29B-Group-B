@@ -1,17 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hire/normaluser/loader.dart';
 import 'package:hire/normaluser/login.dart';
 import 'package:hire/normaluser/splash.dart';
+import 'package:provider/provider.dart';
 
+import 'controllers/google_signin.dart';
 import 'controllers/login_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,8 +22,9 @@ class MyApp extends StatelessWidget {
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+    create : (context) => GoogleSignInController(),
+   child:MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -33,8 +37,15 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.green,
+        
       ),
-      home: Mainpage(),
-    );
-  }
+      
+home: const Mainpage(),
+    )
+     );
+
+  
+   
+   
+  
 }

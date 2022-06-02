@@ -68,7 +68,10 @@ class _homeState extends State<home> {
         lastName: lastName,
         email: email,
       ),
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: currentTab == 2 ? 
+        Text("Hire a New Professional") : Text( "Dashboard",), 
+      ),
       body: PageStorage(
         child: currentScreen,
         bucket: bucket,
