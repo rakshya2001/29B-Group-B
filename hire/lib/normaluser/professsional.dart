@@ -15,8 +15,10 @@ class _professionalState extends State<professional> {
 
   @override
   Widget build(BuildContext context) {
+    
     final Stream<QuerySnapshot> dataStream =
         FirebaseFirestore.instance.collection("users").snapshots();
+        
     return Scaffold(
       body: Container(
         color: Colors.amber,
@@ -77,8 +79,12 @@ class _professionalState extends State<professional> {
                                       child: Text(professional[i]["category"],
                                           style:
                                               const TextStyle(fontSize: 20))),
+                                              SizedBox(
+                                                width: 100,
+                                              ),
                                   SizedBox(
-                                    width: 150,
+                                    width: 250,
+                                    
                                     child: Row(
                                       children: [
                                         Align(
@@ -103,15 +109,19 @@ class _professionalState extends State<professional> {
                                                 )),
                                           ),
                                         ),
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                              Icons.favorite,color: Colors.black,
+                                        
+                                        SizedBox(
+                                          width: 50,
+                                          ), Align(
+                                            alignment: Alignment.topRight,
+                                            child: IconButton(
+                                              onPressed: () {},
+                                              icon: const Icon(
+                                                Icons.favorite,color: Colors.black,
+                                              ),
                                             ),
                                           ),
-                                        ),
+                                        
                                       ],
                                     ),
                                   ),
