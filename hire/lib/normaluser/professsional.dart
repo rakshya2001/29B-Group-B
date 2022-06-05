@@ -12,13 +12,13 @@ class professional extends StatefulWidget {
 
 class _professionalState extends State<professional> {
   List<Object> _professionalis = [];
+  final _saved = <professional>{};
 
   @override
   Widget build(BuildContext context) {
-    
     final Stream<QuerySnapshot> dataStream =
         FirebaseFirestore.instance.collection("users").snapshots();
-        
+
     return Scaffold(
       body: Container(
         color: Colors.amber,
@@ -38,11 +38,17 @@ class _professionalState extends State<professional> {
                     );
                   }
                   final List professional = [];
-                  snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map a = document.data() as Map<String, dynamic>;
-                    professional.add(a);
-                    a['users'] = document.id;
-                  }).toList();
+                  snapshot.data!.docs.map(
+                    (DocumentSnapshot document) {
+                      Map a = document.data() as Map<String, dynamic>;
+                      professional.add(a);
+                      a['users'] = document.id;
+                    },
+                  ).toList();
+
+                  final index = professional.length ~/ 2;
+
+                  final alreadysaved = _saved.contains((professional[index]));
                   return Column(
                       children: List.generate(
                     professional.length,
@@ -57,7 +63,7 @@ class _professionalState extends State<professional> {
                             Card(
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20.0)),
-                              color: const Color(0xfff3fbfb),
+                              color: Color.fromARGB(255, 118, 172, 172),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -79,12 +85,11 @@ class _professionalState extends State<professional> {
                                       child: Text(professional[i]["category"],
                                           style:
                                               const TextStyle(fontSize: 20))),
-                                              SizedBox(
-                                                width: 100,
-                                              ),
+                                  SizedBox(
+                                    width: 100,
+                                  ),
                                   SizedBox(
                                     width: 250,
-                                    
                                     child: Row(
                                       children: [
                                         Align(
@@ -109,19 +114,33 @@ class _professionalState extends State<professional> {
                                                 )),
                                           ),
                                         ),
-                                        
-                                        SizedBox(
+                                        const SizedBox(
                                           width: 50,
-                                          ), Align(
-                                            alignment: Alignment.topRight,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.favorite,color: Colors.black,
-                                              ),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                if (alreadysaved) {
+                                                  _saved.remove(
+                                                      professional[index]);
+                                                } else {
+                                                  _saved
+                                                      .add(professional[index]);
+                                                }
+                                              });
+                                            },
+                                            icon: Icon(
+                                              alreadysaved
+                                                  ? Icons.favorite
+                                                  : Icons.favorite_border,
+                                              color: alreadysaved
+                                                  ? Colors.red
+                                                  : null,
                                             ),
                                           ),
-                                        
+                                        ),
                                       ],
                                     ),
                                   ),

@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hire/normaluser/loader.dart';
-import 'package:hire/normaluser/login.dart';
-import 'package:hire/normaluser/splash.dart';
+import 'package:get/get.dart';
+
+
 import 'package:provider/provider.dart';
 
 import 'controllers/google_signin.dart';
@@ -24,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
     create : (context) => GoogleSignInController(),
-   child:MaterialApp(
+   child:GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
