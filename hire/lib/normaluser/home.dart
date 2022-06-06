@@ -12,10 +12,13 @@ import 'package:hire/normaluser/profile.dart';
 import 'NavBar.dart';
 
 class home extends StatefulWidget {
-  const home({Key? key}) : super(key: key);
+  String? firstName;
+  String? lastName;
+  String? email;
+  home({this.firstName, this.lastName, this.email}) : super();
 
   @override
-  State<home> createState() => _homeState();
+  State<home> createState() => _homeState(firstName, lastName, email);
 }
 
 class _homeState extends State<home> {
@@ -26,25 +29,25 @@ class _homeState extends State<home> {
   String? email;
 
   //properties
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    FirebaseFirestore.instance
-        .collection("users")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.loggedInuser = UserModel.fromMap(value.data());
-    }).whenComplete(() {
-      setState(() {
-        firstName = loggedInuser.firstname.toString();
-        lastName = loggedInuser.lastname.toString();
-        email = loggedInuser.email.toString();
-      });
-    });
-  }
+  _homeState(this.firstName, this.lastName, this.email);
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   FirebaseFirestore.instance
+  //       .collection("users")
+  //       .doc(user!.uid)
+  //       .get()
+  //       .then((value) {
+  //     this.loggedInuser = UserModel.fromMap(value.data());
+  //   }).whenComplete(() {
+  //     setState(() {
+  //       firstName = loggedInuser.firstname.toString();
+  //       lastName = loggedInuser.lastname.toString();
+  //       email = loggedInuser.email.toString();
+  //     });
+  //   });
+  // }
 
   int currentTab = 0;
   final List<Widget> screens = [
@@ -69,8 +72,11 @@ class _homeState extends State<home> {
         email: email,
       ),
       appBar: AppBar(
-        title: currentTab == 2 ? 
-        Text("Hire a New Professional") : Text( "Dashboard",), 
+        title: currentTab == 2
+            ? Text("Hire a New Professional")
+            : Text(
+                "Dashboard",
+              ),
       ),
       body: PageStorage(
         child: currentScreen,

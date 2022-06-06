@@ -46,123 +46,120 @@ class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Navbar(
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-        ),
+        // drawer: Navbar(
+        //   firstName: firstName,
+        //   lastName: lastName,
+        //   email: email,
+        // ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                  height: Dimensions.pageview,
-                  child: PageView.builder(
-                    controller: pageController,
-                    itemCount: 5,
-                    itemBuilder: (context, position) {
-                      return _buildPageItem(position);
-                    },
-                  )),
-              DotsIndicator(
-                dotsCount: 5,
-                position: currentpagevalue,
-                // ignore: prefer_const_constructors
-                decorator: DotsDecorator(
-                  color: Colors.black87, // Inactive color
-                  activeColor: Colors.redAccent,
-                ),
+      child: Column(
+        children: [
+          Container(
+              height: Dimensions.pageview,
+              child: PageView.builder(
+                controller: pageController,
+                itemCount: 5,
+                itemBuilder: (context, position) {
+                  return _buildPageItem(position);
+                },
+              )),
+          DotsIndicator(
+            dotsCount: 5,
+            position: currentpagevalue,
+            // ignore: prefer_const_constructors
+            decorator: DotsDecorator(
+              color: Colors.black87, // Inactive color
+              activeColor: Colors.redAccent,
+            ),
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              BigText(text: "Popular "),
+              const SizedBox(
+                width: 10,
               ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 10),
-                child:
-                    Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                  BigText(text: "Popular "),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  const Text(
-                    "Professionals ",
-                    style: TextStyle(color: Colors.black26, fontSize: 12),
-                  )
-                ]),
-              ),
-              Container(
-                height: 700,
-                child: ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: 10,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin:
-                            EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 120,
-                              height: 120,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white38,
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "assets/electrician.jpg"))),
-                            ),
-                            Container(
-                              height: 100,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    bottomRight: Radius.circular(20)),
-                                color: Colors.white,
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(left: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    BigText(text: "Testing in progress "),
+              const Text(
+                "Professionals ",
+                style: TextStyle(color: Colors.black26, fontSize: 12),
+              )
+            ]),
+          ),
+          Container(
+            height: 700,
+            child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 120,
+                          height: 120,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white38,
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: AssetImage("assets/electrician.jpg"))),
+                        ),
+                        Container(
+                          height: 100,
+                          width: 250,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(20),
+                                bottomRight: Radius.circular(20)),
+                            color: Colors.white,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                BigText(text: "Testing in progress "),
+                                icontext(
+                                    icon: Icons.phone,
+                                    text: "98xxxxxxxx",
+                                    color: Colors.grey,
+                                    iconColor: Colors.grey),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: const [
                                     icontext(
-                                        icon: Icons.phone,
-                                        text: "98xxxxxxxx",
-                                        color: Colors.grey,
-                                        iconColor: Colors.grey),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        icontext(
-                                            icon: Icons.work,
-                                            text: "Plumber",
-                                            color: Colors.black,
-                                            iconColor: Colors.amber),
-                                        icontext(
-                                            icon: Icons.location_on,
-                                            text: "Kathmandu",
-                                            color: Colors.black,
-                                            iconColor: Colors.blue)
-                                      ],
-                                    ),
+                                        icon: Icons.work,
+                                        text: "Plumber",
+                                        color: Colors.black,
+                                        iconColor: Colors.amber),
+                                    icontext(
+                                        icon: Icons.location_on,
+                                        text: "Kathmandu",
+                                        color: Colors.black,
+                                        iconColor: Colors.blue)
                                   ],
                                 ),
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
-              ),
-            ],
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }),
           ),
-        ));
+        ],
+      ),
+    ));
   }
 
   Widget _buildPageItem(int index) {
@@ -198,8 +195,14 @@ class _dashboardState extends State<dashboard> {
         children: [
           GestureDetector(
             onTap: (() {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => Popular(name: "Testing test ", category: 'Plumber', city: 'Kathmandu', email: 'test@gmail.com', phone: '98xxxxxxxx',)));
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => Popular(
+                        name: "Testing test ",
+                        category: 'Plumber',
+                        city: 'Kathmandu',
+                        email: 'test@gmail.com',
+                        phone: '98xxxxxxxx',
+                      )));
             }),
             child: Container(
               height: Dimensions.pageViewContainer,

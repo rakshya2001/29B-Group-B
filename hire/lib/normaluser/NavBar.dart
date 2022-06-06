@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,9 +24,10 @@ class Navbar extends StatefulWidget {
 }
 
 class _NavbarState extends State<Navbar> {
-  String? firstName;
-  String? lastName;
-  String? email;
+  String? firstName = "";
+  String? lastName = "";
+  String? email = "";
+  String? photoURL = "";
 
   double rating = 0;
 
@@ -37,11 +40,13 @@ class _NavbarState extends State<Navbar> {
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: Text(" ${user.displayName} "),
-            accountEmail: Text(" ${user.email}"),
+            accountName: firstName == "" && lastName == ""
+                ? Text(" ${user.displayName} ")
+                : Text(" $firstName $lastName"),
+            accountEmail: email == "" ? Text(" ${user.email}") : Text("$email"),
             currentAccountPicture: CircleAvatar(
               radius: 40,
-              backgroundImage: NetworkImage(user.photoURL!),
+              // backgroundImage: NetworkImage(user.photoURL),
             ),
             decoration: const BoxDecoration(
               color: Colors.green,
@@ -57,8 +62,8 @@ class _NavbarState extends State<Navbar> {
             leading: const Icon(Icons.home),
             title: const Text("Home"),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const home()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => home()));
             },
           ),
           ListTile(
@@ -84,8 +89,7 @@ class _NavbarState extends State<Navbar> {
               final provider =
                   Provider.of<GoogleSignInController>(context, listen: false);
               provider.logout();
-
-              
+              Logout(context);
             },
           ),
           const Divider(

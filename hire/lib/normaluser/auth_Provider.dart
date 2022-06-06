@@ -36,6 +36,9 @@ class _ControllerState extends State<Controller> {
   UserModel userModel = UserModel();
   late String uid;
   late String role;
+  String? firstName="";
+  String? lastName="";
+  String? email="";
 
   @override
   void initState() {
@@ -51,6 +54,12 @@ class _ControllerState extends State<Controller> {
       setState(() {
         uid = userModel.uid.toString();
         role = userModel.role.toString();
+        email = userModel.email;
+        firstName = userModel.firstname;
+        lastName = userModel.lastname;
+        print(firstName);
+        print(lastName);
+        print(email);
       });
     }).catchError((e) {
       print(e.toString());
@@ -60,7 +69,11 @@ class _ControllerState extends State<Controller> {
   route() {
     try {
       if (role == "normaluser") {
-        return home();
+        return home(
+          email: email,
+          firstName: firstName,
+          lastName: lastName,
+        );
       } else if (role == 'professional') {
         return Dashboard();
       }
