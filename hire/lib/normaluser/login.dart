@@ -8,6 +8,7 @@ import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/loader.dart';
 import 'package:hire/normaluser/registerpage.dart';
 import 'package:hire/normaluser/registerscreen.dart';
+import 'package:hire/normaluser/resetpassword.dart';
 import 'package:provider/provider.dart';
 
 import '../controllers/google_signin.dart';
@@ -103,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
           onPressed: () {
             signIn(emailController.text, passwordController.text);
           },
-          child: Text(
+          child: const Text(
             "Login",
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -136,6 +137,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           emailField,
                           SizedBox(height: 25),
                           passwordField,
+                          SizedBox(height: 5,),
+                          Row(
+                            children: <Widget> [
+                              const SizedBox(
+                                width: 200,),
+                              TextButton(
+                                onPressed: (){
+                                     Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Resetpassword()));
+                                  },
+                                
+                                child: const Text("Forgot Password ?",style: TextStyle(color: Colors.redAccent),))
+                            ],
+                          ),
                           SizedBox(height: 25),
                           loginButton,
                           SizedBox(height: 35),
@@ -166,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             builder: (context) =>
                                                 registerScreen()));
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     "SignUp",
                                     style: TextStyle(
                                         color: Colors.redAccent,

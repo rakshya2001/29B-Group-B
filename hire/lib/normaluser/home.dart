@@ -8,6 +8,7 @@ import 'package:hire/normaluser/dashboard.dart';
 import 'package:hire/normaluser/favourite.dart';
 import 'package:hire/normaluser/professsional.dart';
 import 'package:hire/normaluser/profile.dart';
+import 'package:hire/normaluser/search.dart';
 
 import 'NavBar.dart';
 
@@ -86,7 +87,10 @@ class _homeState extends State<home> {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
         backgroundColor: Colors.orangeAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => Search()));
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 

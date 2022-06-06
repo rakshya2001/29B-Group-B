@@ -25,7 +25,7 @@ class _ExpandableTextState extends State<ExpandableText> {
     if (widget.text.length > textHeight) {
       firsthalf = widget.text.substring(0, textHeight.toInt());
       secondhalf =
-          widget.text.substring(textHeight.toInt(), widget.text.length);
+          widget.text.substring(textHeight.toInt()+1, widget.text.length);
     } else {
       firsthalf = widget.text;
       secondhalf = "";
@@ -47,17 +47,17 @@ class _ExpandableTextState extends State<ExpandableText> {
                     setState(() {
                       hiddenText = !hiddenText;
                     });
-                  },
+                  }, 
                   child: Row(children: [
-                    Text(
+                     const Text(
                       "Show More",
                       style: TextStyle(color: Colors.blue),
                     ),
-                    Icon(
-                      Icons.arrow_drop_down,
+                    Icon(hiddenText? Icons.arrow_drop_down : Icons.arrow_drop_up,
                       color: Colors.blue,
                     )
                   ]),
+                 
                 )
               ],
             ),

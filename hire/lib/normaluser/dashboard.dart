@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:hire/controllers/databasevalue.dart';
 import 'package:hire/normaluser/NavBar.dart';
 import 'package:hire/normaluser/bigtext.dart';
 import 'package:hire/utils/dimension.dart';
 import 'package:hire/widgets/icontext.dart';
 
+import '../models/user_model.dart';
 import '../pages/popular.dart';
 
 class dashboard extends StatefulWidget {
@@ -18,6 +21,8 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
+  
+
   String? firstName;
   String? lastName;
   String? email;
@@ -31,15 +36,30 @@ class _dashboardState extends State<dashboard> {
   @override
   void initState() {
     super.initState();
-    pageController.addListener(() {
-      setState(() {
-        currentpagevalue = pageController.page!;
-      });
-    });
+    fetchDatabaseList();
+    // pageController.addListener(() {
+    //   setState(() {
+    //     currentpagevalue = pageController.page!;
+        
+    //   });
+    // });
 
-    @override
-    void dispose() {
-      pageController.dispose();
+    // @override
+    // void dispose() {
+    //   pageController.dispose();
+    // }
+  }
+
+List UserProfileList = [];
+  fetchDatabaseList() async {
+    List resultant =  await DatabaseManager().getUserlist();
+    if(resultant == null){
+      print("unable");
+    }else{
+      setState(() {
+        UserProfileList = resultant;
+      });
+      
     }
   }
 
@@ -58,7 +78,7 @@ class _dashboardState extends State<dashboard> {
               height: Dimensions.pageview,
               child: PageView.builder(
                 controller: pageController,
-                itemCount: 5,
+                itemCount: UserProfileList.length,
                 itemBuilder: (context, position) {
                   return _buildPageItem(position);
                 },
@@ -93,7 +113,7 @@ class _dashboardState extends State<dashboard> {
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: UserProfileList.length,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -197,11 +217,11 @@ class _dashboardState extends State<dashboard> {
             onTap: (() {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => Popular(
-                        name: "Testing test ",
-                        category: 'Plumber',
-                        city: 'Kathmandu',
-                        email: 'test@gmail.com',
-                        phone: '98xxxxxxxx',
+                        name: UserProfileList[index]["firstname"],
+                        category:  UserProfileList[index]["category"],
+                        city:  UserProfileList[index]["city"],
+                        email:  UserProfileList[index]["email"],
+                        phone:  UserProfileList[index]["phone"],
                       )));
             }),
             child: Container(
@@ -235,7 +255,7 @@ class _dashboardState extends State<dashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text: " tester test "),
+                    BigText(text:UserProfileList[index]["firstname"].toString() ),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
@@ -251,15 +271,15 @@ class _dashboardState extends State<dashboard> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children:  [
                         icontext(
                             icon: Icons.work,
-                            text: "Plumber",
+                            text:UserProfileList[index]["category"],
                             color: Colors.black,
                             iconColor: Colors.amber),
                         icontext(
                             icon: Icons.location_on,
-                            text: "Kathmandu",
+                            text: UserProfileList[index]["city"],
                             color: Colors.black,
                             iconColor: Colors.blue)
                       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/pages/textexpand.dart';
 
@@ -7,7 +8,8 @@ import '../utils/app_icon.dart';
 import '../utils/dimension.dart';
 import '../widgets/icontext.dart';
 
-class Popular extends StatelessWidget {
+class Popular extends StatefulWidget {
+  
   final String name;
   final String email;
   final String phone;
@@ -23,7 +25,15 @@ class Popular extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<Popular> createState() => _PopularState();
+  
+}
+
+class _PopularState extends State<Popular> {
+  double rating = 0;
+  @override
   Widget build(BuildContext context) {
+     
     return Scaffold(
       body: Stack(
         children: [
@@ -74,7 +84,7 @@ class Popular extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       BigText(
-                        text: name,
+                        text: widget.name,
                         size: 32,
                       ),
                       SizedBox(
@@ -95,17 +105,17 @@ class Popular extends StatelessWidget {
                         children: [
                           icontext(
                               icon: Icons.work,
-                              text: category,
+                              text: widget.category,
                               color: Colors.black,
                               iconColor: Colors.amber),
                           icontext(
                               icon: Icons.mail,
-                              text: email,
+                              text: widget.email,
                               color: Colors.black,
                               iconColor: Colors.redAccent),
                           icontext(
                               icon: Icons.location_on,
-                              text: city,
+                              text: widget.city,
                               color: Colors.black,
                               iconColor: Colors.blue)
                         ],
@@ -113,16 +123,39 @@ class Popular extends StatelessWidget {
                       SizedBox(
                         height: Dimensions.height10,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          BigText(text: "ABOUT ME"),
-                          const Expanded(
-                              child: SingleChildScrollView(
-                                  child: ExpandableText(
-                                      text:
-                                          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been centuries, but also the leap into electronic typesetting, remaining essentum.")))
-                        ],
+                      SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            BigText(text: "ABOUT ME"),
+                            
+                            const SingleChildScrollView(
+                              child: ExpandableText(
+                                  text:
+                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been centuries, but also the leap into electronic typesetting, remaining essentum."),
+                            ),
+                             Row(
+                               children: [
+                                 Text("Rating : $rating", style: const TextStyle(fontSize: 15)),
+                                  RatingBar.builder(
+                               minRating: 0,
+                               itemSize: 50,
+                               itemPadding: const EdgeInsets.symmetric(horizontal: 4),
+                               itemBuilder: (context, _) => const Icon(
+                                 Icons.star,
+                                 color: Colors.amber,
+                               ),
+                               updateOnDrag: true,
+                               onRatingUpdate: (rating) => setState(() {
+                                 this.rating = rating;
+                               }),
+                             )
+                               ],
+                             ),
+                             
+                            
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -133,7 +166,7 @@ class Popular extends StatelessWidget {
         ],
       ),
       bottomNavigationBar: Container(
-          height: 120,
+          height: 90,
           padding:
               const EdgeInsets.only(top: 30, bottom: 30, left: 20, right: 20),
           decoration: const BoxDecoration(
@@ -150,17 +183,17 @@ class Popular extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.white),
                   child: Row(
-                    children: [Icon(Icons.phone, size: 50)],
+                    children: [Icon(Icons.phone, size: 30)],
                   )),
               Container(
+                height:500,
+                width: 100,
                 padding: const EdgeInsets.only(
-                    top: 20, bottom: 20, left: 10, right: 10),
-                child: BigText(
-                  text: "Hire Me",
-                  color: Colors.white,
-                ),
+                    top: 5, bottom: 5, left: 30, right: 10),
+                child:  BigText(text: "Hire", size: 50,),
+                 
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     color: Colors.green),
               )
             ],
