@@ -9,31 +9,31 @@ import '../utils/dimension.dart';
 import '../widgets/icontext.dart';
 
 class Popular extends StatefulWidget {
-  
-  final String name;
+  final String firstname;
+  final String lastname;
   final String email;
   final String phone;
   final String city;
   final String category;
+  final String time;
+  
   const Popular(
       {Key? key,
-      required this.name,
+      required this.firstname,
       required this.email,
       required this.phone,
       required this.city,
-      required this.category})
+      required this.category, required this.lastname, required this.time})
       : super(key: key);
 
   @override
   State<Popular> createState() => _PopularState();
-  
 }
 
 class _PopularState extends State<Popular> {
   double rating = 0;
   @override
   Widget build(BuildContext context) {
-     
     return Scaffold(
       body: Stack(
         children: [
@@ -83,9 +83,18 @@ class _PopularState extends State<Popular> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      BigText(
-                        text: widget.name,
-                        size: 32,
+                      Row(
+                        children:[
+                          BigText(
+                          text: widget.firstname,
+                          size: 32,
+                        ),
+                        SizedBox(width: 10,),
+                         BigText(
+                          text: widget.lastname,
+                          size: 32,
+                        ),
+                        ]
                       ),
                       SizedBox(
                         height: Dimensions.height10,
@@ -128,32 +137,31 @@ class _PopularState extends State<Popular> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             BigText(text: "ABOUT ME"),
-                            
-                            const SingleChildScrollView(
+                            SingleChildScrollView(
                               child: ExpandableText(
                                   text:
-                                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been centuries, but also the leap into electronic typesetting, remaining essentum."),
+                                      "Hello I am ${widget.firstname} ${widget.lastname} from ${widget.city}. Currently I Prefer working as ${widget.time} as a ${widget.category}. You can reach me through here also can contact me on ${widget.phone} "),
                             ),
-                             Row(
-                               children: [
-                                 Text("Rating : $rating", style: const TextStyle(fontSize: 15)),
-                                  RatingBar.builder(
-                               minRating: 0,
-                               itemSize: 50,
-                               itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                               itemBuilder: (context, _) => const Icon(
-                                 Icons.star,
-                                 color: Colors.amber,
-                               ),
-                               updateOnDrag: true,
-                               onRatingUpdate: (rating) => setState(() {
-                                 this.rating = rating;
-                               }),
-                             )
-                               ],
-                             ),
-                             
-                            
+                            Row(
+                              children: [
+                                Text("Rating : $rating",
+                                    style: const TextStyle(fontSize: 15)),
+                                RatingBar.builder(
+                                  minRating: 0,
+                                  itemSize: 50,
+                                  itemPadding:
+                                      const EdgeInsets.symmetric(horizontal: 4),
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  updateOnDrag: true,
+                                  onRatingUpdate: (rating) => setState(() {
+                                    this.rating = rating;
+                                  }),
+                                )
+                              ],
+                            ),
                           ],
                         ),
                       )
@@ -186,12 +194,14 @@ class _PopularState extends State<Popular> {
                     children: [Icon(Icons.phone, size: 30)],
                   )),
               Container(
-                height:500,
+                height: 500,
                 width: 100,
                 padding: const EdgeInsets.only(
                     top: 5, bottom: 5, left: 30, right: 10),
-                child:  BigText(text: "Hire", size: 50,),
-                 
+                child: BigText(
+                  text: "Hire",
+                  size: 50,
+                ),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.green),

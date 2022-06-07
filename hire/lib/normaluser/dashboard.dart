@@ -217,11 +217,13 @@ List UserProfileList = [];
             onTap: (() {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => Popular(
-                        name: UserProfileList[index]["firstname"],
+                        firstname: UserProfileList[index]["firstname"],
                         category:  UserProfileList[index]["category"],
                         city:  UserProfileList[index]["city"],
                         email:  UserProfileList[index]["email"],
                         phone:  UserProfileList[index]["phone"],
+                        lastname:  UserProfileList[index]["lastname"],
+                        time:  UserProfileList[index]["time"],
                       )));
             }),
             child: Container(

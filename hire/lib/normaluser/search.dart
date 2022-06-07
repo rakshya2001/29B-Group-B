@@ -27,8 +27,17 @@ class _SearchState extends State<Search> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Get.to(Popular(name:snapshotData.docs[index]["firstname"] , email: snapshotData.docs[index]["email"], phone: snapshotData.docs[index]["phone"], city: snapshotData.docs[index]["city"], category: snapshotData.docs[index]["category"]),
-              transition: Transition.downToUp,
+              Get.to(
+                Popular(
+                  firstname: snapshotData.docs[index]["firstname"],
+                  email: snapshotData.docs[index]["email"],
+                  phone: snapshotData.docs[index]["phone"],
+                  city: snapshotData.docs[index]["city"],
+                  category: snapshotData.docs[index]["category"],
+                  time: snapshotData.docs[index]["time"],
+                  lastname: snapshotData.docs[index]["lastname"],
+                ),
+                transition: Transition.downToUp,
               );
             },
             child: ListTile(

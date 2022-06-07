@@ -46,10 +46,16 @@ dependencies:
   flutter_facebook_auth: ^4.3.4
   dots_indicator: ^2.1.0
   get: ^4.6.5
+  
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+
+
+
+        
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
