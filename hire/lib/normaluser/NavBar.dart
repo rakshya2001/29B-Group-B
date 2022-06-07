@@ -16,38 +16,54 @@ import 'package:provider/provider.dart';
 class Navbar extends StatefulWidget {
   Navbar({Key? key, this.firstName, this.lastName, this.email})
       : super(key: key);
-  String? firstName;
-  String? lastName;
-  String? email;
+  String? firstName = "";
+  String? lastName = "";
+  String? email = "";
   @override
   State<Navbar> createState() => _NavbarState(firstName, lastName, email);
 }
 
 class _NavbarState extends State<Navbar> {
   String? firstName = "";
+  final user = FirebaseAuth.instance.currentUser!;
+  String? fullName = "";
   String? lastName = "";
   String? email = "";
   String? photoURL = "";
-
+  String? googleEmail = "";
+  String profileUrl =
+      "https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png";
+  String? profileGoogleUrl = "";
   double rating = 0;
+  @override
+  void initState() {
+    super.initState();
+    // firstName = user.displayName;
+    setState(() {
+      fullName = user.displayName;
+      googleEmail = user.email;
+    });
+  }
 
   _NavbarState(this.firstName, this.lastName, this.email);
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
           UserAccountsDrawerHeader(
-            accountName: firstName == "" && lastName == ""
-                ? Text(" ${user.displayName} ")
+            accountName: fullName != ""
+                ? Text(" ${fullName} ")
                 : Text(" $firstName $lastName"),
-            accountEmail: email == "" ? Text(" ${user.email}") : Text("$email"),
-            currentAccountPicture: CircleAvatar(
-              radius: 40,
-              // backgroundImage: NetworkImage(user.photoURL),
-            ),
+            accountEmail:
+                googleEmail != "" ? Text(" ${googleEmail}") : Text("$email"),
+            // currentAccountPicture: CircleAvatar(
+            //   radius: 40,
+            //   backgroundImage: profileGoogleUrl != ""
+            //       ? NetworkImage(profileGoogleUrl!)
+            //       : NetworkImage(profileUrl),
+            // ),
             decoration: const BoxDecoration(
               color: Colors.green,
               image: DecorationImage(

@@ -30,7 +30,7 @@ class _professionalState extends State<professional> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError) {
-                    print("error");
+                    return Container();
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
@@ -82,7 +82,7 @@ class _professionalState extends State<professional> {
                                   ),
                                   Align(
                                       alignment: Alignment.topLeft,
-                                      child: Text(professional[i]["category"],
+                                      child: Text(professional[i]["lastname"],
                                           style:
                                               const TextStyle(fontSize: 20))),
                                   SizedBox(

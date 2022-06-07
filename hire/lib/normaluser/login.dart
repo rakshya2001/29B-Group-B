@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Mainpage();
                             },
                           ),
-                          SizedBox(height: 45),
+                          SizedBox(height:15),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

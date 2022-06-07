@@ -13,9 +13,9 @@ import 'package:hire/normaluser/search.dart';
 import 'NavBar.dart';
 
 class home extends StatefulWidget {
-  String? firstName;
-  String? lastName;
-  String? email;
+  String? firstName = "";
+  String? lastName = "";
+  String? email= "";
   home({this.firstName, this.lastName, this.email}) : super();
 
   @override
@@ -25,9 +25,9 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInuser = UserModel();
-  String? firstName;
-  String? lastName;
-  String? email;
+  String? firstName = "";
+  String? lastName = "";
+  String? email ="";
 
   //properties
   _homeState(this.firstName, this.lastName, this.email);

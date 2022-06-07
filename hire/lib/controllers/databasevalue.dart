@@ -20,8 +20,7 @@ class DatabaseManager {
     try {
       await data.get().then((QuerySnapshot) {
         QuerySnapshot.docs.forEach((element) {
-          itemsList.add(element.data);
-          
+          itemsList.add(element.data); 
         });
       });
       return itemsList;

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hire/controllers/databasevalue.dart';
 import 'package:hire/normaluser/NavBar.dart';
 import 'package:hire/normaluser/bigtext.dart';
+import 'package:hire/pages/user.dart';
 import 'package:hire/utils/dimension.dart';
 import 'package:hire/widgets/icontext.dart';
 
@@ -21,12 +22,18 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
-  
-
+  final CollectionReference data =
+      FirebaseFirestore.instance.collection("users");
   String? firstName;
   String? lastName;
   String? email;
-
+  String cities = "";
+  String categorys = "";
+  String firstNames = "";
+  String lastNames = "";
+  String emails = "";
+  UserModel userModel = UserModel();
+  List profiles = [];
   _dashboardState(this.firstName, this.lastName, this.email);
 
   PageController pageController = PageController(viewportFraction: 0.85);
@@ -36,11 +43,16 @@ class _dashboardState extends State<dashboard> {
   @override
   void initState() {
     super.initState();
-    fetchDatabaseList();
+    data.get().then((value) {
+      value.docs.forEach((element) {
+        this.userModel = UserModel.fromMap(element.data());
+        profiles.add(Users(firstNames, lastNames, categorys, cities, emails));
+      });
+    });
     // pageController.addListener(() {
     //   setState(() {
     //     currentpagevalue = pageController.page!;
-        
+
     //   });
     // });
 
@@ -50,16 +62,15 @@ class _dashboardState extends State<dashboard> {
     // }
   }
 
-List UserProfileList = [];
+  List UserProfileList = [];
   fetchDatabaseList() async {
-    List resultant =  await DatabaseManager().getUserlist();
-    if(resultant == null){
+    List resultant = await DatabaseManager().getUserlist();
+    if (resultant == null) {
       print("unable");
-    }else{
+    } else {
       setState(() {
         UserProfileList = resultant;
       });
-      
     }
   }
 
@@ -78,7 +89,7 @@ List UserProfileList = [];
               height: Dimensions.pageview,
               child: PageView.builder(
                 controller: pageController,
-                itemCount: UserProfileList.length,
+                itemCount: 5,
                 itemBuilder: (context, position) {
                   return _buildPageItem(position);
                 },
@@ -113,7 +124,7 @@ List UserProfileList = [];
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: UserProfileList.length,
+                itemCount:5,
                 itemBuilder: (context, index) {
                   return Container(
                     margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
@@ -217,13 +228,13 @@ List UserProfileList = [];
             onTap: (() {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => Popular(
-                        firstname: UserProfileList[index]["firstname"],
-                        category:  UserProfileList[index]["category"],
-                        city:  UserProfileList[index]["city"],
-                        email:  UserProfileList[index]["email"],
-                        phone:  UserProfileList[index]["phone"],
-                        lastname:  UserProfileList[index]["lastname"],
-                        time:  UserProfileList[index]["time"],
+                        firstname: profiles[index]["firstname"],
+                        category: profiles[index]["category"],
+                        city: profiles[index]["city"],
+                        email: profiles[index]["email"],
+                        phone: profiles[index]["phone"],
+                        lastname: profiles[index]["lastname"],
+                        time: UserProfileList[index]["time"],
                       )));
             }),
             child: Container(
@@ -257,7 +268,8 @@ List UserProfileList = [];
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(text:UserProfileList[index]["firstname"].toString() ),
+                    BigText(
+                        text: "Tester test"),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
@@ -273,15 +285,15 @@ List UserProfileList = [];
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children:  [
+                      children: [
                         icontext(
                             icon: Icons.work,
-                            text:UserProfileList[index]["category"],
+                            text: "Plumber",
                             color: Colors.black,
                             iconColor: Colors.amber),
                         icontext(
                             icon: Icons.location_on,
-                            text: UserProfileList[index]["city"],
+                            text: "Kathmandu",
                             color: Colors.black,
                             iconColor: Colors.blue)
                       ],

@@ -34,18 +34,18 @@ class _ControllerState extends State<Controller> {
 
   User? loggedUser = FirebaseAuth.instance.currentUser;
   UserModel userModel = UserModel();
-  late String uid;
-  late String role;
-  String? firstName="";
-  String? lastName="";
-  String? email="";
+  String? uid;
+  String? role;
+  String firstName = "";
+  String lastName = "";
+  String email = "";
 
   @override
   void initState() {
     super.initState();
     FirebaseFirestore.instance
         .collection('users')
-        .doc(loggedUser!.uid)
+        .doc(loggedUser?.uid)
         .get()
         .then((value) {
       this.userModel = UserModel.fromMap(value.data());
@@ -54,9 +54,10 @@ class _ControllerState extends State<Controller> {
       setState(() {
         uid = userModel.uid.toString();
         role = userModel.role.toString();
-        email = userModel.email;
-        firstName = userModel.firstname;
-        lastName = userModel.lastname;
+        email = userModel.email!;
+        firstName = userModel.firstname!;
+        lastName = userModel.lastname!;
+        print(uid);
         print(firstName);
         print(lastName);
         print(email);

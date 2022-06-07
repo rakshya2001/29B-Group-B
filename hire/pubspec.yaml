@@ -46,6 +46,7 @@ dependencies:
   flutter_facebook_auth: ^4.3.4
   dots_indicator: ^2.1.0
   get: ^4.6.5
+  animated_splash_screen: ^1.2.0
   
 
 dev_dependencies:

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'controllers/google_signin.dart';
 import 'controllers/login_controller.dart';
+import 'normaluser/splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         
       ),
       
-home: const Mainpage(),
+home:Splash(),
     )
      );
 
