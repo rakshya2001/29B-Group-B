@@ -2,6 +2,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hire/normaluser/dashboard.dart';
+import 'package:hire/normaluser/home.dart';
 
 
 import 'package:provider/provider.dart';

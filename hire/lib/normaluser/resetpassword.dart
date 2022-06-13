@@ -20,13 +20,8 @@ class _ResetpasswordState extends State<Resetpassword> {
     final snackbar = SnackBar(
         content:
             Text("Reset Email successfully send to ${emailController.text}. Check Your email Address and change the password"),
-        action: SnackBarAction(
-          label: "Okey",
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
-          },
-        ));
+      
+        );
 
     final emailField = TextFormField(
         autofocus: false,
@@ -48,7 +43,7 @@ class _ResetpasswordState extends State<Resetpassword> {
         },
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
-          prefixIcon: Icon(Icons.mail),
+          prefixIcon: const Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           hintText: "Email",
           border: OutlineInputBorder(
@@ -63,14 +58,14 @@ class _ResetpasswordState extends State<Resetpassword> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
-            // if (_formKey.currentState!.validate()) {
+             if (_formKey.currentState!.validate()) {
             resetpassword();
             ScaffoldMessenger.of(context).showSnackBar(snackbar);
              Navigator.push(context,
                 MaterialPageRoute(builder: (context) => LoginScreen()));
-            // }
+             }
           },
-          child: Text(
+          child: const Text(
             "Send Email",
             textAlign: TextAlign.center,
             style: TextStyle(

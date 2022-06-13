@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:hire/controllers/databasevalue.dart';
+import 'package:hire/models/data.dart';
 import 'package:hire/normaluser/NavBar.dart';
 import 'package:hire/normaluser/bigtext.dart';
+import 'package:hire/normaluser/viewdetails.dart';
 import 'package:hire/pages/user.dart';
 import 'package:hire/utils/dimension.dart';
 import 'package:hire/widgets/icontext.dart';
@@ -22,6 +24,9 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
+  final CollectionReference ref =
+      FirebaseFirestore.instance.collection('users');
+
   final CollectionReference data =
       FirebaseFirestore.instance.collection("users");
   String? firstName;
@@ -33,6 +38,8 @@ class _dashboardState extends State<dashboard> {
   String lastNames = "";
   String emails = "";
   UserModel userModel = UserModel();
+  ViewUserdetail viewUserdetail = ViewUserdetail();
+
   List profiles = [];
   _dashboardState(this.firstName, this.lastName, this.email);
 
@@ -43,23 +50,34 @@ class _dashboardState extends State<dashboard> {
   @override
   void initState() {
     super.initState();
-    data.get().then((value) {
+    ref.get().then((value) {
       value.docs.forEach((element) {
         this.userModel = UserModel.fromMap(element.data());
-        profiles.add(Users(firstNames, lastNames, categorys, cities, emails));
+        String? firstname;
+        String? lastname;
+        String? image = "";
+        String? phone;
+        String? city;
+        String? category;
+        print(
+            "---------------------------- Doctor data ----------------------------");
+        setState(() {
+          firstName = "${userModel.firstname}";
+          lastName = "${userModel.lastname}";
+          print("Profile Pic..............");
+          // if (doctor_data.profileImageDownloadURL != null) {
+          //   imageURL = doctor_data.profileImageDownloadURL;
+          // }
+          // print(imageURL);
+          phone = userModel.phone.toString();
+          city = userModel.city.toString();
+          category = userModel.category.toString();
+          print(firstName);
+        });
+        this.viewUserdetail.detail.add(
+            UserDetail(firstName!, lastName!, image, phone!, category!, city!));
       });
     });
-    // pageController.addListener(() {
-    //   setState(() {
-    //     currentpagevalue = pageController.page!;
-
-    //   });
-    // });
-
-    // @override
-    // void dispose() {
-    //   pageController.dispose();
-    // }
   }
 
   List UserProfileList = [];
@@ -124,68 +142,9 @@ class _dashboardState extends State<dashboard> {
             child: ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount:5,
+                itemCount: viewUserdetail.detail.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white38,
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage("assets/electrician.jpg"))),
-                        ),
-                        Container(
-                          height: 100,
-                          width: 250,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20)),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                BigText(text: "Testing in progress "),
-                                icontext(
-                                    icon: Icons.phone,
-                                    text: "98xxxxxxxx",
-                                    color: Colors.grey,
-                                    iconColor: Colors.grey),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: const [
-                                    icontext(
-                                        icon: Icons.work,
-                                        text: "Plumber",
-                                        color: Colors.black,
-                                        iconColor: Colors.amber),
-                                    icontext(
-                                        icon: Icons.location_on,
-                                        text: "Kathmandu",
-                                        color: Colors.black,
-                                        iconColor: Colors.blue)
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  );
+                  return Viewdetails(viewUserdetail.detail[index]);
                 }),
           ),
         ],
@@ -268,8 +227,7 @@ class _dashboardState extends State<dashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BigText(
-                        text: "Tester test"),
+                    BigText(text: "Tester test"),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
