@@ -36,6 +36,7 @@ class _SearchState extends State<Search> {
                   category: snapshotData.docs[index]["category"],
                   time: snapshotData.docs[index]["time"],
                   lastname: snapshotData.docs[index]["lastname"],
+                  
                 ),
                 transition: Transition.downToUp,
               );

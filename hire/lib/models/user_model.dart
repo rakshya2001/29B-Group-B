@@ -12,6 +12,7 @@ class UserModel {
   String? role;
   String? category;
   String? time;
+  String? image;
   UserModel({
     this.uid,
     this.firstname,
@@ -24,6 +25,7 @@ class UserModel {
     this.phone,
     this.role,
     this.category,
+    this.image,
     this.time,
   });
 
@@ -42,7 +44,9 @@ class UserModel {
         phone: map['phone'],
         role: map['role'],
         category: map['category'],
-        time: map['time']);
+        time: map['time'],
+        image: map['image'],
+        );
   }
 
   //sending data to  the server
@@ -60,7 +64,8 @@ class UserModel {
       'phone': phone,
       'role': role,
       'time': time,
-      'category': category
+      'category': category,
+      'image': image
     };
   }
 
@@ -76,6 +81,7 @@ class UserModel {
         'phone': phone,
         'role': role,
         'time': time,
-        'category': category
+        'category': category,
+        'image': image
       };
 }

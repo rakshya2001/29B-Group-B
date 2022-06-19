@@ -21,4 +21,5 @@ class Userdetails {
     data['email'] = this.email;
     return data;
   }
+  
 }

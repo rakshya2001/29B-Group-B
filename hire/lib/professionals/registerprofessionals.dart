@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -18,14 +19,23 @@ class multilistedregister extends StatefulWidget {
 }
 
 class _multilistedregisterState extends State<multilistedregister> {
+  String imageUrl = " ";
   File? image;
   File? image1;
   Future pickImage(ImageSource source) async {
     try {
-      final image1 = await ImagePicker().pickImage(source: source);
+      final image1 = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image1 == null) return;
 
       final imageTemporary = File(image1.path);
+      Reference ref = FirebaseStorage.instance.ref().child("proflepic.jpg");
+      await ref.putFile(File(image1.path));
+      ref.getDownloadURL().then((value) {
+        print(value);
+        setState(() {
+          imageUrl = value;
+        });
+      });
       setState(() => this.image1 = imageTemporary);
     } on PlatformException catch (e) {
       print("falied To pick Image : $e");
@@ -34,7 +44,7 @@ class _multilistedregisterState extends State<multilistedregister> {
 
   Future pickImage2(ImageSource source) async {
     try {
-      final image = await ImagePicker().pickImage(source: source);
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
 
       final imageTemporary = File(image.path);
@@ -92,7 +102,6 @@ class _multilistedregisterState extends State<multilistedregister> {
           title: const Text(""),
           content: Container(
             child: Column(
-              key: _formKey,
               children: <Widget>[
                 const Text(" Personal Details"),
                 const SizedBox(
@@ -580,6 +589,7 @@ class _multilistedregisterState extends State<multilistedregister> {
     userModel.category = selectedvalue2;
     userModel.time = selectedvalue;
     userModel.role = "professional";
+    userModel.image = imageUrl;
 
     await firebaseFirestore
         .collection("users")

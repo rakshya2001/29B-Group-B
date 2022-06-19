@@ -39,6 +39,7 @@ class _ControllerState extends State<Controller> {
   String firstName = "";
   String lastName = "";
   String email = "";
+  String profile = "";
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _ControllerState extends State<Controller> {
         email = userModel.email!;
         firstName = userModel.firstname!;
         lastName = userModel.lastname!;
+        profile = userModel.image!;
         print(uid);
         print(firstName);
         print(lastName);
@@ -74,6 +76,7 @@ class _ControllerState extends State<Controller> {
           email: email,
           firstName: firstName,
           lastName: lastName,
+          profile : profile,
         );
       } else if (role == 'professional') {
         return Dashboard();

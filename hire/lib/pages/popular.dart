@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hire/normaluser/hiredform.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/pages/textexpand.dart';
 
@@ -16,6 +17,7 @@ class Popular extends StatefulWidget {
   final String city;
   final String category;
   final String time;
+  
   
   const Popular(
       {Key? key,
@@ -94,6 +96,7 @@ class _PopularState extends State<Popular> {
                           text: widget.lastname,
                           size: 32,
                         ),
+                        
                         ]
                       ),
                       SizedBox(
@@ -193,18 +196,33 @@ class _PopularState extends State<Popular> {
                   child: Row(
                     children: [Icon(Icons.phone, size: 30)],
                   )),
-              Container(
-                height: 500,
-                width: 100,
-                padding: const EdgeInsets.only(
-                    top: 5, bottom: 5, left: 30, right: 10),
-                child: BigText(
-                  text: "Hire",
-                  size: 50,
+              GestureDetector(
+                onTap : (){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => hire(
+                                firstName:widget.firstname ,
+                                lastName: widget.lastname,
+                                email: widget.email,
+                                phone: widget.phone,
+
+                              )));
+                },
+                
+                child: Container(
+                  height: 500,
+                  width: 100,
+                  padding: const EdgeInsets.only(
+                      top: 5, bottom: 5, left: 30, right: 10),
+                  child: BigText(
+                    text: "Hire",
+                    size: 50,
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.green),
                 ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.green),
               )
             ],
           )),

@@ -47,6 +47,9 @@ dependencies:
   dots_indicator: ^2.1.0
   get: ^4.6.5
   animated_splash_screen: ^1.2.0
+  firebase_storage: ^10.2.18
+  khalti_flutter: ^2.1.0
+  khalti: ^1.0.2
   
 
 dev_dependencies:
@@ -85,7 +88,7 @@ flutter:
     - assets/login.png
     - assets/ad1.jpg
     - assets/plumber.jpg
-    - assets/electrician.jpg
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

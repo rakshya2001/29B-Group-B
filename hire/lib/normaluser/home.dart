@@ -15,8 +15,9 @@ import 'NavBar.dart';
 class home extends StatefulWidget {
   String? firstName = "";
   String? lastName = "";
-  String? email= "";
-  home({this.firstName, this.lastName, this.email}) : super();
+  String? email = "";
+  String? profile = "";
+  home({this.firstName, this.lastName, this.email, this.profile}) : super();
 
   @override
   State<home> createState() => _homeState(firstName, lastName, email);
@@ -27,7 +28,8 @@ class _homeState extends State<home> {
   UserModel loggedInuser = UserModel();
   String? firstName = "";
   String? lastName = "";
-  String? email ="";
+  String? email = "";
+  String? image = "";
 
   //properties
   _homeState(this.firstName, this.lastName, this.email);
@@ -71,6 +73,7 @@ class _homeState extends State<home> {
         firstName: firstName,
         lastName: lastName,
         email: email,
+        profile : image,
       ),
       appBar: AppBar(
         title: currentTab == 2

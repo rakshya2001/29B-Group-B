@@ -13,14 +13,19 @@ import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/login.dart';
 import 'package:provider/provider.dart';
 
+import 'aboutus.dart';
+
 class Navbar extends StatefulWidget {
-  Navbar({Key? key, this.firstName, this.lastName, this.email})
+  Navbar({Key? key, this.firstName, this.lastName, this.email, this.profile})
       : super(key: key);
   String? firstName = "";
   String? lastName = "";
   String? email = "";
+  String? profile = "";
+
   @override
-  State<Navbar> createState() => _NavbarState(firstName, lastName, email);
+  State<Navbar> createState() =>
+      _NavbarState(firstName, lastName, email, profile);
 }
 
 class _NavbarState extends State<Navbar> {
@@ -31,8 +36,7 @@ class _NavbarState extends State<Navbar> {
   String? email = "";
   String? photoURL = "";
   String? googleEmail = "";
-  String profileUrl =
-      "https://www.pngall.com/wp-content/uploads/5/Profile-Male-PNG.png";
+  String profile = "";
   String? profileGoogleUrl = "";
   double rating = 0;
   @override
@@ -45,9 +49,10 @@ class _NavbarState extends State<Navbar> {
     });
   }
 
-  _NavbarState(this.firstName, this.lastName, this.email);
+  _NavbarState(this.firstName, this.lastName, this.email, this.photoURL);
   @override
   Widget build(BuildContext context) {
+    print(profile);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -58,12 +63,12 @@ class _NavbarState extends State<Navbar> {
                 : Text(" $firstName $lastName"),
             accountEmail:
                 googleEmail != "" ? Text(" ${googleEmail}") : Text("$email"),
-            // currentAccountPicture: CircleAvatar(
-            //   radius: 40,
-            //   backgroundImage: profileGoogleUrl != ""
-            //       ? NetworkImage(profileGoogleUrl!)
-            //       : NetworkImage(profileUrl),
-            // ),
+            currentAccountPicture: CircleAvatar(
+              radius: 40,
+              backgroundImage: profileGoogleUrl != ""
+                  ? NetworkImage(profileGoogleUrl!)
+                  : NetworkImage(profile)
+            ),
             decoration: const BoxDecoration(
               color: Colors.green,
               image: DecorationImage(
@@ -95,7 +100,7 @@ class _NavbarState extends State<Navbar> {
             title: const Text("About Us "),
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const contact()));
+                  MaterialPageRoute(builder: (context) =>  Aboutus()));
             },
           ),
           ListTile(
