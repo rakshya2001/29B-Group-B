@@ -188,7 +188,7 @@ class _hireState extends State<hire> {
         .collection("hire")
         .doc(user!.uid)
         .set(HireModel.toMap());
-    Fluttertoast.showToast(msg: "Account created sucessfully");
+    Fluttertoast.showToast(msg: "sucessfully");
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => home()), (route) => false);
   }

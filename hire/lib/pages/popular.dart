@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hire/normaluser/chat.dart';
 import 'package:hire/normaluser/hiredform.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/pages/textexpand.dart';
@@ -189,13 +190,25 @@ class _PopularState extends State<Popular> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Row(
-                    children: [Icon(Icons.phone, size: 30)],
-                  )),
+              GestureDetector(
+                onTap:(){
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Chat(
+                                firstname:widget.firstname ,
+                                lastname: widget.lastname
+                                
+
+                              )));},
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Row(
+                      children: [Icon(Icons.chat, size: 30)],
+                    )),
+              ),
               GestureDetector(
                 onTap : (){
                         Navigator.push(

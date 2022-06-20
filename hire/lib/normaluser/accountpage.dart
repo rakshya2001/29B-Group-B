@@ -8,7 +8,7 @@ class AccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleSettingsTile(
       title: "Account setting",
-      subtitle: 'Help, Change Pasword, Privacy',
+      subtitle: 'Change Pasword,Two Step verification ',
       leading: IconButton(icon: Icon(Icons.settings,color: Colors.green,),onPressed: (){},),
     child:
      SettingsScreen(title: "Account Setting ",children: [
@@ -19,6 +19,29 @@ class AccountPage extends StatelessWidget {
               subtitle: "",
               leading: IconButton(
                 icon: const Icon(Icons.key_sharp,color: Colors.amber,),
+                onPressed: () {},
+                
+                
+              ),
+            ),
+            
+            SimpleSettingsTile(
+    
+              title: "Two Step Verification ",
+              subtitle: "",
+              leading: IconButton(
+                icon: const Icon(Icons.phone,color: Color.fromARGB(255, 196, 98, 32),),
+                onPressed: () {},
+                
+                
+              ),
+            ),
+            SimpleSettingsTile(
+    
+              title: "Change Email Address",
+              subtitle: "",
+              leading: IconButton(
+                icon: const Icon(Icons.email,color: Color.fromARGB(73, 24, 5, 5),),
                 onPressed: () {},
                 
                 
