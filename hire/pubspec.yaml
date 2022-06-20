@@ -50,6 +50,9 @@ dependencies:
   firebase_storage: ^10.2.18
   khalti_flutter: ^2.1.0
   khalti: ^1.0.2
+  flutter_settings_screens: ^0.3.3-null-safety+1
+  flutter_local_notifications: ^9.6.1
+  timezone: ^0.8.0
   
 
 dev_dependencies:

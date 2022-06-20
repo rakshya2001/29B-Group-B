@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hire/normaluser/Notification.dart';
 import 'package:hire/normaluser/bigtext.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/loader.dart';
@@ -63,9 +64,13 @@ class _hireState extends State<hire> {
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () {
-          postDetailsToFirestore();
-        },
+        onPressed: () =>
+          NotificationApi.showNotification(
+            title: "Hiring Sucessfull ",
+            body:"Successfully  you have Hired  to work for  ",payload: 'success '),
+        
+          
+        
         child: const Text(
           "Confirm ",
           textAlign: TextAlign.center,

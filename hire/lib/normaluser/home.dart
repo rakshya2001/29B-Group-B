@@ -79,7 +79,7 @@ class _homeState extends State<home> {
         title: currentTab == 2
             ? Text("Hire a New Professional")
             : Text(
-                "Dashboard",
+                "",
               ),
       ),
       body: PageStorage(
@@ -161,9 +161,10 @@ class _homeState extends State<home> {
                   );
                 },
                 icon: Icon(
-                  Icons.person,
+                  Icons.settings,
                   size: 30,
                   color: currentTab == 3 ? Colors.white : Colors.black,
+                  
                 ),
               ),
             ],
