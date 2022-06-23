@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+// having this is fantastic
 final CollectionReference profileList =
     FirebaseFirestore.instance.collection("users");
 
