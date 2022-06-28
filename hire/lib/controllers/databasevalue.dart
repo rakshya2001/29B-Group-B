@@ -15,7 +15,7 @@ class DatabaseManager {
     });
   }
 
-// this is the google auth system for authentication between login and registration
+
 
   Future getUserlist() async {
     List itemsList = [];
