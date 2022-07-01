@@ -64,7 +64,10 @@ class _KhaltipaymentState extends State<Khaltipayment> {
                     ),
                     preferences: [
                       PaymentPreference.khalti,
-                      PaymentPreference.connectIPS
+                      PaymentPreference.connectIPS,
+                      PaymentPreference.eBanking,
+                      PaymentPreference.mobileBanking,
+                      PaymentPreference.sct
                     ],
                     onSuccess: (su) {
                       const successsnackBar = SnackBar(
