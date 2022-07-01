@@ -10,3 +10,4 @@ class Dimensions {
   static double height10 = ScreenHeight / 84.4;
   static double height20 = ScreenHeight / 42.2;
 }
+// dimension
