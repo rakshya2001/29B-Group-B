@@ -20,8 +20,13 @@ class Viewdetails extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white38,
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: AssetImage(userDetail.image))),
+                image: userDetail.image != ""
+                    ? DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(userDetail.image))
+                    : DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage("assets/aashutosh.jpg"))),
           ),
           Container(
             height: 100,

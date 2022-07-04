@@ -55,7 +55,7 @@ class _dashboardState extends State<dashboard> {
         this.userModel = UserModel.fromMap(element.data());
         String? firstname;
         String? lastname;
-        String? image = "";
+        String image = "";
         String? phone;
         String? city;
         String? category;
@@ -65,10 +65,11 @@ class _dashboardState extends State<dashboard> {
           firstName = "${userModel.firstname}";
           lastName = "${userModel.lastname}";
           print("Profile Pic..............");
-          // if (doctor_data.profileImageDownloadURL != null) {
-          //   imageURL = doctor_data.profileImageDownloadURL;
-          // }
-          // print(imageURL);
+          print("Profile Pic..............");
+          if (userModel.image != null) {
+            image = userModel.image!;
+          }
+          print(image);
           phone = userModel.phone.toString();
           city = userModel.city.toString();
           category = userModel.category.toString();
@@ -194,7 +195,6 @@ class _dashboardState extends State<dashboard> {
                         phone: profiles[index]["phone"],
                         lastname: profiles[index]["lastname"],
                         time: UserProfileList[index]["time"],
-                       
                       )));
             }),
             child: Container(
