@@ -86,10 +86,10 @@ class _homeState extends State<home> {
         child: currentScreen,
         bucket: bucket,
       ),
-      //floating button
+      //floating button3
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.search),
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.blue,
         onPressed: () {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => Search()));
