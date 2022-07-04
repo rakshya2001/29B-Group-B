@@ -48,6 +48,7 @@ dependencies:
   get: ^4.6.5
   animated_splash_screen: ^1.2.0
   firebase_storage: ^10.2.18
+<<<<<<< HEAD
  
   khalti: ^1.0.2
   flutter_settings_screens: ^0.3.3-null-safety+1
@@ -55,6 +56,15 @@ dependencies:
   timezone: ^0.8.0
   flutter_local_notifications: ^9.5.3+1
   khalti_flutter: ^2.0.2
+=======
+
+  khalti: ^1.0.2
+  flutter_settings_screens: ^0.3.3-null-safety+1
+  
+  timezone: ^0.8.0
+  khalti_flutter: ^2.0.2
+  flutter_local_notifications: ^9.5.3+1
+>>>>>>> 9794223048a15798b26c533722dcd10942cc6fc3
   
 
 dev_dependencies:
