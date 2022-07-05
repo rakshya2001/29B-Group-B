@@ -64,15 +64,13 @@ class _dashboardState extends State<dashboard> {
         setState(() {
           firstName = "${userModel.firstname}";
           lastName = "${userModel.lastname}";
-          print("Profile Pic..............");
-          print("Profile Pic..............");
           if (userModel.image != null) {
             image = userModel.image!;
           }
-          print(image);
           phone = userModel.phone.toString();
           city = userModel.city.toString();
           category = userModel.category.toString();
+          print(image);
           print(firstName);
         });
         this.viewUserdetail.detail.add(

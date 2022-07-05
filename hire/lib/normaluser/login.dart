@@ -94,24 +94,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
 
-    final loginButton = Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(30),
-      color: Colors.redAccent,
-      child: MaterialButton(
-          padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          minWidth: MediaQuery.of(context).size.width,
-          onPressed: () {
-            signIn(emailController.text, passwordController.text);
-          },
-          child: const Text(
-            "Login",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
-          )),
-    );
-
     return loading
         ? ColorLoader3()
         : Scaffold(
@@ -137,25 +119,49 @@ class _LoginScreenState extends State<LoginScreen> {
                           emailField,
                           SizedBox(height: 25),
                           passwordField,
-                          SizedBox(height: 5,),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Row(
-                            children: <Widget> [
+                            children: <Widget>[
                               const SizedBox(
-                                width: 200,),
+                                width: 200,
+                              ),
                               TextButton(
-                                onPressed: (){
-                                     Navigator.push(
+                                  onPressed: () {
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 Resetpassword()));
                                   },
-                                
-                                child: const Text("Forgot Password ?",style: TextStyle(color: Colors.redAccent),))
+                                  child: const Text(
+                                    "Forgot Password ?",
+                                    style: TextStyle(color: Colors.redAccent),
+                                  ))
                             ],
                           ),
                           SizedBox(height: 25),
-                          loginButton,
+                          Material(
+                            elevation: 5,
+                            borderRadius: BorderRadius.circular(30),
+                            color: Colors.redAccent,
+                            child: MaterialButton(
+                                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                                minWidth: MediaQuery.of(context).size.width,
+                                onPressed: () {
+                                  signIn(emailController.text,
+                                      passwordController.text);
+                                },
+                                child: const Text(
+                                  "Login",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          ),
                           SizedBox(height: 35),
                           GestureDetector(
                             child: Image.asset(
@@ -171,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Mainpage();
                             },
                           ),
-                          SizedBox(height:15), 
+                          SizedBox(height: 15),
                           Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[

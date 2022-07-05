@@ -39,18 +39,17 @@ class _ControllerState extends State<Controller> {
   String firstName = "";
   String lastName = "";
   String email = "";
-  String profile = "";
+  String? profile;
 
   @override
   void initState() {
     super.initState();
     FirebaseFirestore.instance
         .collection('users')
-        .doc(loggedUser?.uid)
+        .doc(loggedUser!.uid)
         .get()
         .then((value) {
       this.userModel = UserModel.fromMap(value.data());
-    }).whenComplete(() {
       ColorLoader3();
       setState(() {
         uid = userModel.uid.toString();
@@ -63,9 +62,8 @@ class _ControllerState extends State<Controller> {
         print(firstName);
         print(lastName);
         print(email);
+        print(profile);
       });
-    }).catchError((e) {
-      print(e.toString());
     });
   }
 
@@ -76,7 +74,7 @@ class _ControllerState extends State<Controller> {
           email: email,
           firstName: firstName,
           lastName: lastName,
-          profile : profile,
+          profile: profile,
         );
       } else if (role == 'professional') {
         return Dashboard();

@@ -16,41 +16,25 @@ class home extends StatefulWidget {
   String? firstName = "";
   String? lastName = "";
   String? email = "";
-  String? profile = "";
+  String? profile;
   home({this.firstName, this.lastName, this.email, this.profile}) : super();
 
   @override
-  State<home> createState() => _homeState(firstName, lastName, email);
+  State<home> createState() => _homeState();
 }
 
 class _homeState extends State<home> {
   User? user = FirebaseAuth.instance.currentUser;
   UserModel loggedInuser = UserModel();
-  String? firstName = "";
-  String? lastName = "";
-  String? email = "";
-  String? image = "";
 
   //properties
-  _homeState(this.firstName, this.lastName, this.email);
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   FirebaseFirestore.instance
-  //       .collection("users")
-  //       .doc(user!.uid)
-  //       .get()
-  //       .then((value) {
-  //     this.loggedInuser = UserModel.fromMap(value.data());
-  //   }).whenComplete(() {
-  //     setState(() {
-  //       firstName = loggedInuser.firstname.toString();
-  //       lastName = loggedInuser.lastname.toString();
-  //       email = loggedInuser.email.toString();
-  //     });
-  //   });
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.profile ??= "hello";
+    print(widget.profile);
+  }
 
   int currentTab = 0;
   final List<Widget> screens = [
@@ -70,10 +54,9 @@ class _homeState extends State<home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Navbar(
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        profile : image,
+        firstName: widget.firstName,
+        lastName: widget.lastName,
+        email: widget.email,
       ),
       appBar: AppBar(
         title: currentTab == 2
@@ -164,7 +147,6 @@ class _homeState extends State<home> {
                   Icons.settings,
                   size: 30,
                   color: currentTab == 3 ? Colors.white : Colors.black,
-                  
                 ),
               ),
             ],

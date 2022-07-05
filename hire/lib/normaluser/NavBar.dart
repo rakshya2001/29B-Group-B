@@ -11,48 +11,70 @@ import 'package:hire/normaluser/contact.dart';
 
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/normaluser/login.dart';
+import 'package:hire/normaluser/profile.dart';
 import 'package:provider/provider.dart';
 
 import 'aboutus.dart';
 
 class Navbar extends StatefulWidget {
-  Navbar({Key? key, this.firstName, this.lastName, this.email, this.profile})
+  Navbar({Key? key, this.firstName, this.lastName, this.email})
       : super(key: key);
   String? firstName = "";
   String? lastName = "";
   String? email = "";
-  String? profile = "";
 
   @override
-  State<Navbar> createState() =>
-      _NavbarState(firstName, lastName, email, profile);
+  State<Navbar> createState() => _NavbarState();
 }
 
 class _NavbarState extends State<Navbar> {
   String? firstName = "";
-  final user = FirebaseAuth.instance.currentUser!;
   String? fullName = "";
   String? lastName = "";
   String? email = "";
   String? photoURL = "";
   String? googleEmail = "";
-  String profile = "";
+  User user = FirebaseAuth.instance.currentUser!;
+
   String? profileGoogleUrl = "";
   double rating = 0;
+  UserModel userModel = UserModel();
   @override
   void initState() {
     super.initState();
-    // firstName = user.displayName;
-    setState(() {
-      fullName = user.displayName;
-      googleEmail = user.email;
+    firstName = user.displayName;
+    email = user.email;
+    if (user.emailVerified) {
+      profileGoogleUrl = user.photoURL;
+    } else {
+      getUserDetail();
+    }
+  }
+
+  getUserDetail() async {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get()
+        .then((value) {
+      if (value.exists) {
+        userModel = UserModel.fromMap(value.data());
+        firstName = userModel.firstname;
+        lastName = userModel.lastname;
+        setState(() {
+          fullName = "${firstName} ${lastName}";
+        });
+        if (userModel.image != null) {
+          setState(() {
+            photoURL = userModel.image;
+          });
+        }
+      }
     });
   }
 
-  _NavbarState(this.firstName, this.lastName, this.email, this.photoURL);
   @override
   Widget build(BuildContext context) {
-    print(profile);
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -63,21 +85,46 @@ class _NavbarState extends State<Navbar> {
                 : Text(" $firstName $lastName"),
             accountEmail:
                 googleEmail != "" ? Text(" ${googleEmail}") : Text("$email"),
-            currentAccountPicture: CircleAvatar(
-              radius: 40,
-              backgroundImage: profileGoogleUrl != ""
-                  ? NetworkImage(profileGoogleUrl!)
-                  : NetworkImage(profile)
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.green,
-              image: DecorationImage(
-                image: NetworkImage(
-                  "https://th.bing.com/th/id/OIP.IApVvI7lUml_gN8K6vhkiQHaNK?w=186&h=331&c=7&r=0&o=5&pid=1.7",
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
+            currentAccountPicture: user.emailVerified
+                ? CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(profileGoogleUrl.toString()))
+                : photoURL != ""
+                    ? CircleAvatar(
+                        radius: 40,
+                        backgroundImage: NetworkImage(photoURL.toString()))
+                    : CircleAvatar(
+                        radius: 40,
+                        backgroundImage: AssetImage("assets/aashutosh.jpg")),
+            decoration: user.emailVerified
+                ? BoxDecoration(
+                    color: Colors.green,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        profileGoogleUrl!,
+                      ),
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : photoURL != ""
+                    ? BoxDecoration(
+                        color: Colors.green,
+                        image: DecorationImage(
+                          image: NetworkImage(
+                            photoURL!,
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      )
+                    : BoxDecoration(
+                        color: Colors.green,
+                        image: DecorationImage(
+                          image: AssetImage(
+                            "assets/aashutosh.jpg",
+                          ),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
           ),
           ListTile(
             leading: const Icon(Icons.home),
@@ -99,8 +146,8 @@ class _NavbarState extends State<Navbar> {
             leading: const Icon(Icons.info),
             title: const Text("About Us "),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) =>  Aboutus()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Aboutus()));
             },
           ),
           ListTile(
