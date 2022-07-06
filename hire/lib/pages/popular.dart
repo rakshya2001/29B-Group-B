@@ -1,9 +1,17 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hire/models/chatRoomModel.dart';
+import 'package:hire/models/user_model.dart';
 import 'package:hire/normaluser/chat.dart';
+import 'package:hire/normaluser/chatRoom.dart';
 import 'package:hire/normaluser/hiredform.dart';
 import 'package:hire/normaluser/home.dart';
 import 'package:hire/pages/textexpand.dart';
+import 'package:uuid/uuid.dart';
 
 import '../normaluser/bigtext.dart';
 import '../utils/app_icon.dart';
@@ -18,15 +26,18 @@ class Popular extends StatefulWidget {
   final String city;
   final String category;
   final String time;
-  
-  
-  const Popular(
+  UserModel? userModel;
+
+  Popular(
       {Key? key,
       required this.firstname,
       required this.email,
       required this.phone,
       required this.city,
-      required this.category, required this.lastname, required this.time})
+      required this.category,
+      required this.lastname,
+      required this.time,
+      this.userModel})
       : super(key: key);
 
   @override
@@ -34,6 +45,54 @@ class Popular extends StatefulWidget {
 }
 
 class _PopularState extends State<Popular> {
+  final User? user = FirebaseAuth.instance.currentUser;
+// ------------------ Generate Random Id ------------------------------
+  var uid = const Uuid();
+  final CollectionReference data =
+      FirebaseFirestore.instance.collection('users');
+
+// ---- Create a chatRoom model between Currentuser and targeted user-------
+  Future<ChatRoomModel?> getChatRoomModel(UserModel targetUser) async {
+    ChatRoomModel? chatRoom;
+
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('chatrooms')
+        .where("participants.${user!.uid}", isEqualTo: true)
+        .where("participants.${targetUser.uid}", isEqualTo: true)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      // log("Chat Room Exists");
+      var docData = snapshot.docs[0].data();
+      ChatRoomModel existingChatRoom =
+          ChatRoomModel.fromMap(docData as Map<String, dynamic>);
+      log('Chat room Exists!');
+      print('My id........');
+      print(user?.uid);
+      print('Targets id......');
+      print(targetUser.uid);
+      chatRoom = existingChatRoom;
+    } else {
+      ChatRoomModel newChatRoom = ChatRoomModel(
+          chatroomId: uid.v1(),
+          lastMessage: "",
+          roomCreated: DateTime.now(),
+          participants: {
+            user!.uid.toString(): true,
+            targetUser.uid.toString(): true,
+          });
+
+      await FirebaseFirestore.instance
+          .collection("chatrooms")
+          .doc(newChatRoom.chatroomId)
+          .set(newChatRoom.toMap());
+      log('New Chat room created!');
+      chatRoom = newChatRoom;
+    }
+
+    return chatRoom;
+  }
+
   double rating = 0;
   @override
   Widget build(BuildContext context) {
@@ -86,20 +145,19 @@ class _PopularState extends State<Popular> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children:[
-                          BigText(
+                      Row(children: [
+                        BigText(
                           text: widget.firstname,
                           size: 32,
                         ),
-                        SizedBox(width: 10,),
-                         BigText(
+                        SizedBox(
+                          width: 10,
+                        ),
+                        BigText(
                           text: widget.lastname,
                           size: 32,
                         ),
-                        
-                        ]
-                      ),
+                      ]),
                       SizedBox(
                         height: Dimensions.height10,
                       ),
@@ -191,16 +249,34 @@ class _PopularState extends State<Popular> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               GestureDetector(
-                onTap:(){
-                  Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Chat(
-                                firstname:widget.firstname ,
-                                lastname: widget.lastname
-                                
+                onTap: () async {
+                  ChatRoomModel? chatRoomModel =
+                      await getChatRoomModel(widget.userModel!);
 
-                              )));},
+                  if (chatRoomModel != null) {
+                    print(widget.userModel!.firstname);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => DoctorProfileScreen(
+                    //             doctor: AllPatientOnSearch[index])));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatRoom(
+                                  username:
+                                      widget.userModel!.firstname.toString(),
+                                  targetUser: widget.userModel!,
+                                  chatroom: chatRoomModel,
+                                )));
+                  }
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => Chat(
+                  //             firstname: widget.firstname,
+                  //             lastname: widget.lastname)));
+                },
                 child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -210,19 +286,17 @@ class _PopularState extends State<Popular> {
                     )),
               ),
               GestureDetector(
-                onTap : (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => hire(
-                                firstName:widget.firstname ,
-                                lastName: widget.lastname,
-                                email: widget.email,
-                                phone: widget.phone,
-
-                              )));
+                onTap: () {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => hire(
+                  //               firstName: widget.firstname,
+                  //               lastName: widget.lastname,
+                  //               email: widget.email,
+                  //               phone: widget.phone,
+                  //             )));
                 },
-                
                 child: Container(
                   height: 500,
                   width: 100,

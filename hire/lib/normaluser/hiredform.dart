@@ -64,13 +64,10 @@ class _hireState extends State<hire> {
       child: MaterialButton(
         padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
-        onPressed: () =>
-          NotificationApi.showNotification(
+        onPressed: () => NotificationApi.showNotification(
             title: "Hiring Sucessfull ",
-            body:"Successfully  you have Hired  to work for  ",payload: 'success '),
-        
-          
-        
+            body: "Successfully  you have Hired  to work for  ",
+            payload: 'success '),
         child: const Text(
           "Confirm ",
           textAlign: TextAlign.center,

@@ -42,16 +42,22 @@ class _NavbarState extends State<Navbar> {
   @override
   void initState() {
     super.initState();
-    firstName = user.displayName;
+    fullName = user.displayName;
     email = user.email;
     if (user.emailVerified) {
       profileGoogleUrl = user.photoURL;
     } else {
-      getUserDetail();
+      getUserDetail().then((value) {
+        setState(() {
+          firstName = userModel.firstname;
+          lastName = userModel.lastname;
+          fullName = "${firstName} ${lastName}";
+        });
+      });
     }
   }
 
-  getUserDetail() async {
+  Future getUserDetail() async {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(user.uid)
@@ -59,12 +65,8 @@ class _NavbarState extends State<Navbar> {
         .then((value) {
       if (value.exists) {
         userModel = UserModel.fromMap(value.data());
-        firstName = userModel.firstname;
-        lastName = userModel.lastname;
-        setState(() {
-          fullName = "${firstName} ${lastName}";
-        });
-        if (userModel.image != null) {
+
+        if (userModel.image != "" && userModel.image != null) {
           setState(() {
             photoURL = userModel.image;
           });
@@ -95,7 +97,7 @@ class _NavbarState extends State<Navbar> {
                         backgroundImage: NetworkImage(photoURL.toString()))
                     : CircleAvatar(
                         radius: 40,
-                        backgroundImage: AssetImage("assets/aashutosh.jpg")),
+                        backgroundImage: AssetImage("assets/rakshya.jpg")),
             decoration: user.emailVerified
                 ? BoxDecoration(
                     color: Colors.green,
@@ -116,11 +118,11 @@ class _NavbarState extends State<Navbar> {
                           fit: BoxFit.cover,
                         ),
                       )
-                    : BoxDecoration(
+                    : const BoxDecoration(
                         color: Colors.green,
                         image: DecorationImage(
                           image: AssetImage(
-                            "assets/aashutosh.jpg",
+                            "assets/rakshya.jpg",
                           ),
                           fit: BoxFit.cover,
                         ),

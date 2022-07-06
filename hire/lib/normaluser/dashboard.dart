@@ -53,28 +53,42 @@ class _dashboardState extends State<dashboard> {
     ref.get().then((value) {
       value.docs.forEach((element) {
         this.userModel = UserModel.fromMap(element.data());
+
+        String? id = userModel.uid;
         String? firstname;
         String? lastname;
         String image = "";
         String? phone;
         String? city;
         String? category;
-        print(
-            "---------------------------- Doctor data ----------------------------");
+        String? email = "";
+        String? time = "Not Specified";
+
         setState(() {
           firstName = "${userModel.firstname}";
           lastName = "${userModel.lastname}";
+
           if (userModel.image != null) {
             image = userModel.image!;
           }
+          if (userModel.time != null) {
+            time = userModel.time!;
+          }
+          email = userModel.email;
           phone = userModel.phone.toString();
           city = userModel.city.toString();
           category = userModel.category.toString();
-          print(image);
-          print(firstName);
         });
-        this.viewUserdetail.detail.add(
-            UserDetail(firstName!, lastName!, image, phone!, category!, city!));
+        this.viewUserdetail.detail.add(UserModel(
+            uid: id,
+            firstname: firstName!,
+            lastname: lastName!,
+            image: image,
+            phone: phone!,
+            category: category!,
+            city: city!,
+            time: time!,
+            email: email!));
       });
     });
   }

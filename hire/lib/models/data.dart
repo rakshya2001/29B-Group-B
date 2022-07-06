@@ -5,8 +5,11 @@ class UserDetail {
   final String phone;
   final String category;
   final String city;
+  final String time;
+  final String email;
 
-  UserDetail(this.firstname, this.lastname, this.image, this.phone,this.category, this.city);
+  UserDetail(this.firstname, this.lastname, this.image, this.phone,
+      this.category, this.city, this.time, this.email);
 }
 
 class ViewUserdetail {

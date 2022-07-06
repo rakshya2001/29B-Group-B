@@ -74,8 +74,8 @@ class _homeState extends State<home> {
         child: const Icon(Icons.search),
         backgroundColor: Colors.blue,
         onPressed: () {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => Search()));
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const Search()));
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
