@@ -41,7 +41,9 @@ class _profileState extends State<profile> {
               subtitle: "",
               leading: IconButton(
                 icon: const Icon(Icons.delete, color: Colors.red,),
-                onPressed: () {},
+                onPressed: () {
+                  
+                },
                 
                 
               ),
