@@ -92,7 +92,7 @@ class _ChatRoomState extends State<ChatRoom> {
       appBar: AppBar(
         title: Row(
           children: [
-            widget.targetUser.image.toString() != ""
+            widget.targetUser.image != "" && widget.targetUser.image != null
                 ? CircleAvatar(
                     backgroundColor: Colors.green[100],
                     backgroundImage:

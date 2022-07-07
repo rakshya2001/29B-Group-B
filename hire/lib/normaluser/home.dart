@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hire/models/user_model.dart';
+import 'package:hire/normaluser/MessagePage.dart';
 import 'package:hire/normaluser/contact.dart';
 import 'package:hire/normaluser/dashboard.dart';
 import 'package:hire/normaluser/favourite.dart';
@@ -40,7 +41,7 @@ class _homeState extends State<home> {
   final List<Widget> screens = [
     dashboard(),
     const professional(),
-    const favourite(),
+    const MessagePage(),
     const profile(),
     Navbar(),
   ];
@@ -109,13 +110,13 @@ class _homeState extends State<home> {
                 onPressed: () {
                   setState(
                     () {
-                      currentScreen = const favourite();
+                      currentScreen = const MessagePage();
                       currentTab = 1;
                     },
                   );
                 },
                 icon: Icon(
-                  Icons.favorite,
+                  Icons.messenger,
                   color: currentTab == 1 ? Colors.white : Colors.black,
                 ),
               ),

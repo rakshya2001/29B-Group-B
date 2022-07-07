@@ -4,20 +4,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hire/models/chatRoomModel.dart';
 import 'package:hire/models/user_model.dart';
+import 'package:hire/normaluser/chatRoom.dart';
 
 import 'package:uuid/uuid.dart';
 
-class MessagePageDoctor extends StatefulWidget {
-  const MessagePageDoctor({Key? key}) : super(key: key);
+class MessagePage extends StatefulWidget {
+  const MessagePage({Key? key}) : super(key: key);
 
   @override
-  _MessagePageDoctorState createState() => _MessagePageDoctorState();
+  _MessagePageState createState() => _MessagePageState();
 }
 
-class _MessagePageDoctorState extends State<MessagePageDoctor> {
+class _MessagePageState extends State<MessagePage> {
   User? user = FirebaseAuth.instance.currentUser;
   var uuid = const Uuid();
-  bool isDoctor = false;
   UserModel customer = UserModel();
   User? firebaseUser = FirebaseAuth.instance.currentUser;
   final CollectionReference CustomerUserdata =
@@ -27,7 +27,6 @@ class _MessagePageDoctorState extends State<MessagePageDoctor> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print('printed1');
   }
 
   Future getCustomerById(String uid) async {
@@ -44,17 +43,6 @@ class _MessagePageDoctorState extends State<MessagePageDoctor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          FlatButton(
-              onPressed: () {
-                // Navigator.of(context).push(
-                //   MaterialPageRoute(builder: (context) => const customer()),
-                // );
-              },
-              child: const Text('Search'))
-        ],
-      ),
       body: SafeArea(
         child: Container(
           child: StreamBuilder(
@@ -94,27 +82,25 @@ class _MessagePageDoctorState extends State<MessagePageDoctor> {
                                 if (userData.data != null) {
                                   UserModel customer =
                                       userData.data as UserModel;
-                                  // DoctorModel customer =
-                                  //     userData.data as DoctorModel;
 
                                   return ListTile(
                                       onTap: () {
-                                        // Navigator.push(context,
-                                        //     MaterialPageRoute(
-                                        //         builder: (context) {
-                                        //   return ChatRoomDoctor(
-                                        //       targetUser: customer,
-                                        //       chatroom: chatRoomModel,
-                                        //       username: customer.firstname
-                                        //           .toString());
-                                        // }));
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (context) {
+                                          return ChatRoom(
+                                              targetUser: customer,
+                                              chatroom: chatRoomModel,
+                                              username: customer.firstname
+                                                  .toString());
+                                        }));
                                       },
-                                      leading: customer.image.toString() == ""
+                                      leading: customer.image == null
                                           ? CircleAvatar(
                                               backgroundColor:
                                                   Colors.green[100],
                                               backgroundImage: const AssetImage(
-                                                  "assets/images/google.png"),
+                                                  "assets/aashutosh.jpg"),
                                             )
                                           : CircleAvatar(
                                               backgroundColor:
