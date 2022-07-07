@@ -51,7 +51,7 @@ class _texthelpState extends State<texthelp> {
     final maxLines1 = isReadmore1 ? null : 5;
     final Overflow1 =
         isReadmore1 ? TextOverflow.visible : TextOverflow.ellipsis;
-            final maxLines2 = isReadmore1 ? null : 5;
+    final maxLines2 = isReadmore1 ? null : 5;
     final Overflow2 =
         isReadmore1 ? TextOverflow.visible : TextOverflow.ellipsis;
     return Scaffold(
@@ -234,7 +234,7 @@ class _texthelpState extends State<texthelp> {
                                   Border.all(width: 2, color: Colors.black)),
                           child: Row(children: [
                             BigText(
-                              text: "Why this app is built? ",
+                              text: "How to delete acoount? ",
                             ),
                             IconButton(
                               icon: Icon(Icons.arrow_downward),
