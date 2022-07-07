@@ -287,15 +287,15 @@ class _PopularState extends State<Popular> {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (context) => hire(
-                  //               firstName: widget.firstname,
-                  //               lastName: widget.lastname,
-                  //               email: widget.email,
-                  //               phone: widget.phone,
-                  //             )));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => hire(
+                                firstName: widget.firstname,
+                                lastName: widget.lastname,
+                                email: widget.email,
+                                phone: widget.phone,
+                              )));
                 },
                 child: Container(
                   height: 500,

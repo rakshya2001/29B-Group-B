@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hire/normaluser/dashboard.dart';
 import 'package:hire/normaluser/home.dart';
+import 'package:hire/normaluser/login.dart';
 import 'package:khalti/khalti.dart';
 import 'package:khalti_flutter/khalti_flutter.dart';
 
